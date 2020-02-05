@@ -1,0 +1,11 @@
+Source: moonlight
+Maintainer: Cameron Gutman <aicommander@gmail.com>
+Section: misc
+Priority: optional
+Standards-Version: 4.3.0
+Build-Depends: debhelper (>= 10), libssl-dev, qtbase5-dev, qtquickcontrols2-5-dev, qtdeclarative5-dev, libqt5svg5-dev, libgl1-mesa-dev, libegl1-mesa-dev, libxkbcommon-dev, wayland-protocols, libopus-dev, libva-dev, libvdpau-dev, libsdl2-dev, libsdl2-ttf-dev 
+
+Package: moonlight
+Architecture: any
+Depends: libraspberrypi0 [armhf] | rbp-userland-osmc [armhf], qml-module-qtquick2, qml-module-qtquick-controls2, qml-module-qtquick-layouts, qml-module-qtquick-window2, ${shlibs:Depends}, ${misc:Depends}
+Description: NVIDIA GameStream client
