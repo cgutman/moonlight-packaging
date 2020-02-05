@@ -10,8 +10,6 @@ RUN set -ex && \
 
 COPY userland /opt/userland
 COPY FFmpeg /opt/FFmpeg
-COPY jetson-ffmpeg /opt/jetson-ffmpeg
-COPY nv-codec-headers /opt/nv-codec-headers
 
 COPY scripts/build-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/build-deps.sh
