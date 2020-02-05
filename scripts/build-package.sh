@@ -36,7 +36,9 @@ cp -r /opt/debian .
 debuild -us -uc
 
 # Copy the output to the out directory
-cp /opt/build/* /out
+cd /opt/build
+shopt -s extglob
+cp -v -r !(moonlight-$VERSION) /out
 
 # Done!
 echo "Build successful!"
