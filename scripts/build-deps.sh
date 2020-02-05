@@ -24,10 +24,6 @@ elif [ "$ARCH" == "aarch64" ]; then
     make -j$(nproc)
     make install
 
-    # We need to patch ffmpeg to add NVMPI support
-    cd /opt/FFmpeg
-    git apply /opt/jetson-ffmpeg/ffmpeg_nvmpi.patch
-
     # Enable NVMPI decoders
     EXTRA_FFMPEG_ARGS="--enable-nvmpi --enable-decoder=h264_nvmpi --enable-decoder=hevc_nvmpi"
 elif [ "$ARCH" == "x86_64" ]; then
