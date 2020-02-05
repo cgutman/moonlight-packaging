@@ -5,7 +5,7 @@ set -e
 echo "Checking out $BRANCH"
 git clone --recursive --branch $BRANCH --depth 1 https://github.com/moonlight-stream/moonlight-qt.git
 cd moonlight-qt
-git show HEAD
+git log -1
 
 # Grab the verson metadata
 VERSION=`cat app/version.txt`
