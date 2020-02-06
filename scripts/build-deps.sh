@@ -17,7 +17,7 @@ elif [ "$ARCH" == "aarch64" ]; then
 elif [ "$ARCH" == "x86_64" ]; then
     # We need to install the NVDEC headers
     cd /opt/nv-codec-headers
-    make install PREFIX=/usr
+    make install
 
     # Enable NVDEC decoders
     EXTRA_FFMPEG_ARGS="--enable-nvdec --enable-hwaccel=h264_nvdec --enable-hwaccel=hevc_nvdec"
