@@ -5,14 +5,6 @@ BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --
 ARCH=`uname -m`
 echo "Building dependencies for $ARCH"
 if [ "$ARCH" == "armv7l" ]; then
-    # We need to link against some Raspberry Pi userland binaries
-    cd /opt/userland
-    mkdir build
-    cd build
-    cmake -DARM64=0 -DVMCS_INSTALL_PREFIX=/usr ..
-    make -j$(nproc)
-    make install
-
     # Enable MMAL decoders
     EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal"
 elif [ "$ARCH" == "aarch64" ]; then
