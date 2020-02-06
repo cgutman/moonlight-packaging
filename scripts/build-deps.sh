@@ -5,6 +5,10 @@ BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --
 ARCH=`uname -m`
 echo "Building dependencies for $ARCH"
 if [ "$ARCH" == "armv7l" ]; then
+    # Copy libraspberrypi-dev pkgconfig files into the default location
+    mkdir -p /usr/local/lib/pkgconfig
+    cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
+
     # Enable MMAL decoders
     EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal"
 elif [ "$ARCH" == "aarch64" ]; then
