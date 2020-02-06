@@ -15,7 +15,6 @@ COPY FFmpeg /opt/FFmpeg
 
 COPY scripts/build-deps.sh /opt/scripts/
 COPY scripts/build-package.sh /opt/scripts/
-COPY debian /opt/debian
 
 VOLUME "/out"
 ENTRYPOINT [ "/bin/bash", "-c", "/opt/scripts/build-deps.sh && /opt/scripts/build-package.sh" ]

@@ -18,7 +18,6 @@ COPY scripts/build-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/build-deps.sh
 
 COPY scripts/build-package.sh /opt/scripts/
-COPY debian /opt/debian
 
 VOLUME "/out"
 ENTRYPOINT [ "/bin/bash", "-c", "/opt/scripts/build-package.sh" ]
