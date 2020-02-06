@@ -15,7 +15,7 @@ mkdir /opt/build
 
 # Nuke the libs folder - not needed for Linux
 git rm -r libs
-git commit -m "Remove pre-built libraries"
+git -c user.name="Docker Build" -c user.email="docker@build" commit -m "Remove pre-built libraries"
 
 # Generate source tarball
 scripts/generate-src.sh
