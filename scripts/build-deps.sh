@@ -8,14 +8,6 @@ if [ "$ARCH" == "armv7l" ]; then
     # Enable MMAL decoders
     EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal"
 elif [ "$ARCH" == "aarch64" ]; then
-    # We need to build libnvmpi
-    cd /opt/jetson-ffmpeg
-    mkdir build
-    cd build
-    cmake ..
-    make -j$(nproc)
-    make install
-
     # Enable NVMPI decoders
     EXTRA_FFMPEG_ARGS="--enable-nvmpi --enable-decoder=h264_nvmpi --enable-decoder=hevc_nvmpi"
 elif [ "$ARCH" == "x86_64" ]; then
@@ -23,6 +15,7 @@ elif [ "$ARCH" == "x86_64" ]; then
     cd /opt/nv-codec-headers
     make install PREFIX=/usr
 
+    # Enable NVDEC decoders
     EXTRA_FFMPEG_ARGS="--enable-nvdec --enable-hwaccel=h264_nvdec --enable-hwaccel=hevc_nvdec"
 else
     echo "Unrecognized architecture: $ARCH"
