@@ -7,12 +7,13 @@ RUN set -ex && \
     echo "deb http://archive.raspberrypi.org/debian/ buster main" >> /etc/apt/sources.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 82B129927FA3303E && \
     apt-get update && \
-    apt-get install -y g++ make devscripts fakeroot debhelper git nasm && \
-    apt-get install -y --no-install-recommends libraspberrypi-dev libssl-dev qtbase5-dev qtquickcontrols2-5-dev qtdeclarative5-dev libqt5svg5-dev libgl1-mesa-dev libegl1-mesa-dev libxkbcommon-dev wayland-protocols libopus-dev libva-dev libvdpau-dev libsdl2-dev libsdl2-ttf-dev && \
+    apt-get install -y g++ make devscripts fakeroot debhelper git nasm libgbm-dev libdrm-dev libsdl2-ttf-dev && \
+    apt-get install -y --no-install-recommends libraspberrypi-dev libssl-dev qtbase5-dev qtquickcontrols2-5-dev qtdeclarative5-dev libqt5svg5-dev libgl1-mesa-dev libegl1-mesa-dev libxkbcommon-dev libopus-dev && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
 COPY FFmpeg /opt/FFmpeg
+COPY SDL2 /opt/SDL2
 
 COPY scripts/build-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/build-deps.sh
