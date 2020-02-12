@@ -31,7 +31,7 @@ fi
 # there's no way to tell QMake to use the Libs.private section, so we have to replace
 # Libs with Libs.private ourselves prior to installation.
 cd /opt/SDL2
-./configure --enable-static --disable-shared --enable-video-kmsdrm
+./configure --enable-static --disable-shared --enable-video-kmsdrm --disable-video-rpi
 make -j$(nproc)
 sed -i '/^Libs:/d' sdl2.pc
 sed -i 's/Libs.private:/Libs:/g' sdl2.pc
