@@ -7,3 +7,6 @@
 [submodule "SDL2"]
 	path = SDL2
 	url = https://github.com/spurious/SDL-mirror.git
+[submodule "SDL_ttf"]
+	path = SDL_ttf
+	url = https://github.com/bminor/SDL_ttf.git

@@ -1,18 +1,17 @@
 FROM nvcr.io/nvidia/l4t-base:r32.3.1
 
-RUN set -ex && \
-    export DEBIAN_FRONTEND=noninteractive && \
+COPY scripts/install-base-deps.sh /opt/scripts/
+RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     echo "deb https://dl.bintray.com/cgutman/moonlight-l4t bionic main" >> /etc/apt/sources.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61 && \
     apt-get update && \
     apt-get install -y libnvmpi1.0.0 && \
-    apt-get install -y g++ make devscripts fakeroot debhelper git nasm libgbm-dev libdrm-dev libsdl2-ttf-dev && \
-    apt-get install -y --no-install-recommends libssl-dev qtbase5-dev qtquickcontrols2-5-dev qtdeclarative5-dev libqt5svg5-dev libgl1-mesa-dev libegl1-mesa-dev libxkbcommon-dev libopus-dev && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
 COPY FFmpeg /opt/FFmpeg
 COPY SDL2 /opt/SDL2
+COPY SDL_ttf /opt/SDL_ttf
 
 COPY scripts/build-deps.sh /opt/scripts/
 COPY scripts/build-package.sh /opt/scripts/
