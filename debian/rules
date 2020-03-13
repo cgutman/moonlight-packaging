@@ -2,3 +2,10 @@
 export QT_SELECT := qt5
 %:
 	dh $@
+
+override_dh_install:
+	dh_install
+
+	# Rename moonlight to moonlight-qt to avoid conflicting with moonlight-embedded
+	mv debian/moonlight-qt/usr/bin/moonlight debian/moonlight-qt/usr/bin/moonlight-qt
+	sed -i 's/Exec=moonlight/Exec=moonlight-qt/g' debian/moonlight-qt/usr/share/applications/com.moonlight_stream.Moonlight.desktop

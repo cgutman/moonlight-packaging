@@ -21,13 +21,13 @@ git -c user.name="Docker Build" -c user.email="docker@build" commit -m "Remove p
 scripts/generate-src.sh
 
 # Move the tarball into the build directory
-mv build/source/MoonlightSrc-$VERSION.tar.gz /opt/build/moonlight_$VERSION.orig.tar.gz 
+mv build/source/MoonlightSrc-$VERSION.tar.gz /opt/build/moonlight-qt_$VERSION.orig.tar.gz
 
 # Extract the tarball into the appropriate directory
 cd /opt/build
-mkdir moonlight-$VERSION
-cd moonlight-$VERSION
-tar xvf ../moonlight_$VERSION.orig.tar.gz
+mkdir moonlight-qt-$VERSION
+cd moonlight-qt-$VERSION
+tar xvf ../moonlight-qt_$VERSION.orig.tar.gz
 
 # Copy the debian directory into the build directory
 cp -r /opt/debian .
@@ -38,7 +38,7 @@ debuild -us -uc
 # Copy the output to the out directory
 cd /opt/build
 shopt -s extglob
-cp -v -r !(moonlight-$VERSION) /out
+cp -v -r !(moonlight-qt-$VERSION) /out
 
 # Done!
 echo "Build successful!"
