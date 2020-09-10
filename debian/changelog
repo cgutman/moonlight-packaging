@@ -1,3 +1,9 @@
+moonlight-qt (2.2.0-1) UNRELEASED; urgency=low
+
+  * Version 2.2.0
+
+ -- Cameron Gutman <aicommander@gmail.com>  Wed, 9 Sep 2020 23:05:28 -0700
+
 moonlight-qt (2.1.0-1) UNRELEASED; urgency=low
 
   * Version 2.1.0
