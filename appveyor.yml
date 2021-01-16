@@ -8,6 +8,8 @@ environment:
       BUILD_SCRIPT: ./build-amd64.sh
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
       BUILD_SCRIPT: ./build-rpi.sh
+    - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
+      BUILD_SCRIPT: ./build-l4t.sh
 
 install:
   - sh: 'sudo apt install -y qemu binfmt-support qemu-user-static'
