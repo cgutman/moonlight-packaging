@@ -21,4 +21,4 @@ else
   echo Built Docker image - cgutman/moonlight-packaging:$TAG_NAME
 fi
 
-docker run --rm --runtime nvidia --mount type=bind,source="$(pwd)"/$OUT_DIR,target=/out --mount type=bind,source="$(pwd)"/debian,target=/opt/debian -e COMMIT="$1" cgutman/moonlight-packaging:$TAG_NAME
+docker run --rm --mount type=bind,source="$(pwd)"/$OUT_DIR,target=/out --mount type=bind,source="$(pwd)"/debian,target=/opt/debian -e COMMIT="$1" cgutman/moonlight-packaging:$TAG_NAME
