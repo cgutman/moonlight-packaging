@@ -1,10 +1,11 @@
 set -e
 
 # Check out the source
-[[ ! -z "$BRANCH" ]] || BRANCH="master"
-echo "Checking out $BRANCH"
-git clone --recursive --branch $BRANCH --depth 1 https://github.com/moonlight-stream/moonlight-qt.git
+[[ ! -z "$COMMIT" ]] || COMMIT="master"
+echo "Checking out $COMMIT"
+git clone https://github.com/moonlight-stream/moonlight-qt.git
 cd moonlight-qt
+git checkout $COMMIT
 git log -1
 
 # Grab the verson metadata

@@ -8,4 +8,4 @@ set -e
 mkdir $OUT_DIR
 
 docker build -f $DOCKERFILE -t cgutman/moonlight-packaging:$TAG_NAME .
-docker run -it --rm --mount type=bind,source="$(pwd)"/$OUT_DIR,target=/out --mount type=bind,source="$(pwd)"/debian,target=/opt/debian cgutman/moonlight-packaging:$TAG_NAME
+docker run -it --rm --mount type=bind,source="$(pwd)"/$OUT_DIR,target=/out --mount type=bind,source="$(pwd)"/debian,target=/opt/debian -e COMMIT="$1" cgutman/moonlight-packaging:$TAG_NAME
