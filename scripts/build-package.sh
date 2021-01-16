@@ -7,6 +7,7 @@ git clone https://github.com/moonlight-stream/moonlight-qt.git
 cd moonlight-qt
 git checkout $COMMIT
 git log -1
+git submodule update --init --recursive
 
 # Grab the verson metadata
 VERSION=`cat app/version.txt`
