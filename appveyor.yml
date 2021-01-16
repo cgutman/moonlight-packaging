@@ -20,6 +20,7 @@ build_script:
   - sh: 'sh -c $BUILD_SCRIPT'
 
 after_build:
-  - sh: 'appveyor PushArtifact out_*/*'
+  - sh: 'appveyor PushArtifact out_*/moonlight-qt_*.deb'
+  - sh: 'appveyor PushArtifact out_*/moonlight-qt-dbgsym_*.deb'
 
 deploy: off
