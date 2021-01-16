@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/l4t-base:r32.3.1
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
-    echo "deb https://dl.bintray.com/cgutman/moonlight-l4t bionic main" >> /etc/apt/sources.list && \
+    echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" >> /etc/apt/sources.list && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61 && \
     apt-get update && \
     apt-get install -y libnvmpi1.0.0 && \
