@@ -23,6 +23,6 @@ build_script:
 
 after_build:
   - sh: 'appveyor PushArtifact out_*/moonlight-qt_*.deb'
-  - sh: 'appveyor PushArtifact out_*/moonlight-qt-dbgsym_*.deb'
+  - sh: 'appveyor PushArtifact out_*/moonlight-qt-dbgsym_*.deb || appveyor PushArtifact out_*/moonlight-qt-dbgsym_*.ddeb'
 
 deploy: off
