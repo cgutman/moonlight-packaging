@@ -1,23 +1,19 @@
 set -e
 
-# Check out the source
+# Check out the source without the Windows/Mac prebuilts
 [[ ! -z "$COMMIT" ]] || COMMIT="master"
 echo "Checking out $COMMIT"
 git clone https://github.com/moonlight-stream/moonlight-qt.git
 cd moonlight-qt
 git checkout $COMMIT
 git log -1
-git submodule update --init --recursive
+git -c submodule.libs.update=none submodule update --init --recursive
 
 # Grab the verson metadata
 VERSION=`cat app/version.txt`
 
 # Create a build directory
 mkdir /opt/build
-
-# Nuke the libs folder - not needed for Linux
-git rm -r libs
-git -c user.name="Docker Build" -c user.email="docker@build" commit -m "Remove pre-built libraries"
 
 # Generate source tarball
 scripts/generate-src.sh
