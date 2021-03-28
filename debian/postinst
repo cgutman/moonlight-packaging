@@ -1,0 +1,51 @@
+#!/bin/bash
+
+NEW_REPO_SUFFIX=qt
+OLD_REPO_SUFFIX=raspbian
+GPG_ID=2F6AE14E1C660D44
+DISTRO=raspbian
+CODENAME=buster
+
+# This script handles migration from Bintray to Cloudsmith seamlessly to
+# avoid users being stuck without updates and having to fix things manually.
+
+# Bail if the old repo file isn't present. The user may have configured
+# things manually and we don't want to mess with that.
+if [ ! -f "/etc/apt/sources.list.d/moonlight-$OLD_REPO_SUFFIX.list" ]; then
+    exit 0
+fi
+
+# Also bail if the *new* repo file is present. I don't know why it would be
+# but let's be safe and not touch it.
+if [ -f "/etc/apt/sources.list.d/moonlight-game-streaming-moonlight-$NEW_REPO_SUFFIX.list" ]; then
+    exit 0
+fi
+
+echo Automatically migrating Moonlight repository source from Bintray to Cloudsmith...
+echo This is necessary due to the imminent Bintray shutdown which will impact Moonlight.
+echo You can read more here: https://jfrog.com/blog/into-the-sunset-bintray-jcenter-gocenter-and-chartcenter/
+
+# We can't use the prepackaged setup script, because APT is already running
+# so we will need to do the steps manually.
+curl -1sLf "https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-$NEW_REPO_SUFFIX/gpg.$GPG_ID.key" | apt-key add -
+if [ $? -ne 0 ]; then
+    echo WARNING: Unable to automatically migrate the Moonlight repo from Bintray to Cloudsmith!
+    echo You may not receive further updates to Moonlight after Bintray stops accepting new packages on March 31 2021.
+    echo For manual setup instructions, visit https://cloudsmith.io/~moonlight-game-streaming/repos/moonlight-$NEW_REPO_SUFFIX/setup/#formats-deb
+    exit 0
+fi
+curl -1sLf "https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-$NEW_REPO_SUFFIX/config.deb.txt?distro=$DISTRO&codename=$CODENAME" > /etc/apt/sources.list.d/moonlight-game-streaming-moonlight-$NEW_REPO_SUFFIX.list
+if [ $? -ne 0 ]; then
+    echo WARNING: Unable to automatically migrate the Moonlight repo from Bintray to Cloudsmith!
+    echo You may not receive further updates to Moonlight after Bintray stops accepting new packages on March 31 2021.
+    echo For manual setup instructions, visit https://cloudsmith.io/~moonlight-game-streaming/repos/moonlight-$NEW_REPO_SUFFIX/setup/#formats-deb
+    exit 0
+fi
+
+# Now delete the old Bintray repo to prevent the user from receiving errors
+# when they run 'apt update' after May 1st 2021.
+rm /etc/apt/sources.list.d/moonlight-$OLD_REPO_SUFFIX.list
+
+# All done!
+echo Migration successful
+exit 0

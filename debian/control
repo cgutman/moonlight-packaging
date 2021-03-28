@@ -7,5 +7,5 @@ Build-Depends: debhelper (>= 10), libssl-dev, qtbase5-dev, qtquickcontrols2-5-de
 
 Package: moonlight-qt
 Architecture: any
-Depends: libraspberrypi0 [armhf] | rbp-userland-osmc [armhf], qml-module-qtquick2, qml-module-qtquick-controls2, qml-module-qtquick-layouts, qml-module-qtquick-window2, ${shlibs:Depends}, ${misc:Depends}
+Depends: libraspberrypi0 [armhf] | rbp-userland-osmc [armhf], qml-module-qtquick2, qml-module-qtquick-controls2, qml-module-qtquick-layouts, qml-module-qtquick-window2, gnupg, ${shlibs:Depends}, ${misc:Depends}
 Description: NVIDIA GameStream client

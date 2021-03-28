@@ -1,3 +1,9 @@
+moonlight-qt (3.1.0-2) UNRELEASED; urgency=low
+
+  * Migrate to Cloudsmith repo from Bintray
+
+ -- Cameron Gutman <aicommander@gmail.com>  Sat, 27 Mar 2021 19:12:18 -0500
+
 moonlight-qt (3.1.0-1) UNRELEASED; urgency=low
 
   * Version 3.1.0
