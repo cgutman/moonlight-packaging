@@ -2,8 +2,7 @@ FROM nvcr.io/nvidia/l4t-base:r32.3.1
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
-    echo "deb https://dl.bintray.com/moonlight-stream/moonlight-l4t bionic main" >> /etc/apt/sources.list && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 379CE192D401AB61 && \
+    curl -1sLf 'https://dl.cloudsmith.io/public/moonlight-game-streaming/moonlight-l4t/setup.deb.sh' | bash && \
     echo "deb https://repo.download.nvidia.com/jetson/common r32 main" >> /etc/apt/sources.list && \
     echo "deb https://repo.download.nvidia.com/jetson/t210 r32 main" >> /etc/apt/sources.list && \
     apt-key adv --fetch-key https://repo.download.nvidia.com/jetson/jetson-ota-public.asc && \
