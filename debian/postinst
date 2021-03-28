@@ -1,10 +1,10 @@
 #!/bin/bash
 
-NEW_REPO_SUFFIX=qt
-OLD_REPO_SUFFIX=raspbian
-GPG_ID=2F6AE14E1C660D44
-DISTRO=raspbian
-CODENAME=buster
+NEW_REPO_SUFFIX=l4t
+OLD_REPO_SUFFIX=l4t
+GPG_ID=75B5C67A010F2EA5
+DISTRO=ubuntu
+CODENAME=bionic
 
 # This script handles migration from Bintray to Cloudsmith seamlessly to
 # avoid users being stuck without updates and having to fix things manually.
