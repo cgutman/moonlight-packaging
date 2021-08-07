@@ -1,3 +1,9 @@
+moonlight-qt (3.1.4-2) UNRELEASED; urgency=low
+
+  * Updated FFmpeg for compatibility with Full KMS on newer kernels
+
+ -- Cameron Gutman <aicommander@gmail.com>  Sat, 7 Aug 2021 22:15:00 +0000
+
 moonlight-qt (3.1.4-1) UNRELEASED; urgency=low
 
   * Version 3.1.4
