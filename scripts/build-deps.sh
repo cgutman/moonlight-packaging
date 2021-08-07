@@ -8,9 +8,6 @@ if [ "$ARCH" == "armv7l" ]; then
     # Copy libraspberrypi-dev pkgconfig files into the default location
     mkdir -p /usr/local/lib/pkgconfig
     cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
-    # Update headers with new definitions required for RPi/V4L2-request
-    cp /opt/RPi/videodev2.h /usr/include/linux/videodev2.h
-    cp /opt/RPi/media.h /usr/include/linux/media.h
     # Enable MMAL decoders
     EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal --disable-rpi --enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
 elif [ "$ARCH" == "aarch64" ]; then
