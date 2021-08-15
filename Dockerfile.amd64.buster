@@ -1,5 +1,7 @@
 FROM amd64/debian:buster
 
+ENV TARGET=desktop
+
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     apt-get install -y --no-install-recommends libwayland-dev wayland-protocols libva-dev libvdpau-dev && \

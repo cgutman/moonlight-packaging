@@ -12,6 +12,19 @@ git -c submodule.libs.update=none submodule update --init --recursive
 # Grab the verson metadata
 VERSION=`cat app/version.txt`
 
+# Determine extra target-specific dependencies
+if [ "$TARGET" == "rpi" ]; then
+    EXTRA_BUILD_DEPS="libraspberrypi-dev | rbp-userland-dev-osmc"
+    EXTRA_DEPS="libraspberrypi0 | rbp-userland-osmc"
+elif [ "$TARGET" == "l4t" ]; then
+    EXTRA_BUILD_DEPS="libnvmpi1.0.0"
+elif [ "$TARGET" == "desktop" ]; then
+    EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols, libva-dev, libvdpau-dev"
+else
+    echo "Unrecognized target: $TARGET"
+    exit 1
+fi
+
 # Create a build directory
 mkdir /opt/build
 
@@ -29,6 +42,11 @@ tar xvf ../moonlight-qt_$VERSION.orig.tar.gz
 
 # Copy the debian directory into the build directory
 cp -r /opt/debian .
+
+# Patch the control file with target-specific dependencies
+sed -i "s/EXTRA_BUILD_DEPS/$EXTRA_BUILD_DEPS/g" debian/control
+sed -i "s/EXTRA_DEPS/$EXTRA_DEPS/g" debian/control
+cat debian/control
 
 # Build the package
 debuild -us -uc

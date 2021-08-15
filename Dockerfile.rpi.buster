@@ -1,5 +1,7 @@
 FROM arm32v7/debian:buster
 
+ENV TARGET=rpi
+
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     apt-get install -y --no-install-recommends gnupg && \

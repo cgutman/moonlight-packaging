@@ -2,18 +2,17 @@ set -e
 
 BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --enable-avcodec --enable-decoder=h264 --enable-decoder=hevc --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
 
-ARCH=`uname -m`
-echo "Building dependencies for $ARCH"
-if [ "$ARCH" == "armv7l" ]; then
+echo "Building dependencies for $TARGET"
+if [ "$TARGET" == "rpi" ]; then
     # Copy libraspberrypi-dev pkgconfig files into the default location
     mkdir -p /usr/local/lib/pkgconfig
     cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
     # Enable MMAL decoders
     EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal --disable-rpi --enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
-elif [ "$ARCH" == "aarch64" ]; then
+elif [ "$TARGET" == "l4t" ]; then
     # Enable NVMPI decoders
     EXTRA_FFMPEG_ARGS="--enable-nvmpi --enable-decoder=h264_nvmpi --enable-decoder=hevc_nvmpi"
-elif [ "$ARCH" == "x86_64" ]; then
+elif [ "$TARGET" == "desktop" ]; then
     # We need to install the NVDEC headers
     cd /opt/nv-codec-headers
     make install
@@ -21,7 +20,7 @@ elif [ "$ARCH" == "x86_64" ]; then
     # Enable VAAPI, VDPAU, and NVDEC decoders
     EXTRA_FFMPEG_ARGS="--enable-nvdec --enable-hwaccel=h264_nvdec --enable-hwaccel=hevc_nvdec --enable-hwaccel=h264_vaapi --enable-hwaccel=hevc_vaapi --enable-hwaccel=h264_vdpau --enable-hwaccel=hevc_vdpau"
 else
-    echo "Unrecognized architecture: $ARCH"
+    echo "Unrecognized target: $TARGET"
     exit 1
 fi
 

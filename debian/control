@@ -3,9 +3,9 @@ Maintainer: Cameron Gutman <aicommander@gmail.com>
 Section: misc
 Priority: optional
 Standards-Version: 4.3.0
-Build-Depends: debhelper (>= 10), libssl-dev, qtbase5-dev, qtquickcontrols2-5-dev, qtdeclarative5-dev, libqt5svg5-dev, libxkbcommon-dev, libopus-dev, libgbm-dev, libdrm-dev, libfreetype6-dev, libasound2-dev, libdbus-1-dev, libegl1-mesa-dev, libgl1-mesa-dev, libgles2-mesa-dev, libglu1-mesa-dev, libibus-1.0-dev, libpulse-dev, libudev-dev, libx11-dev, libxcursor-dev, libxext-dev, libxi-dev, libxinerama-dev, libxrandr-dev, libxss-dev, libxt-dev, libxv-dev, libxxf86vm-dev, libwayland-dev [amd64], wayland-protocols [amd64], libva-dev [amd64], libvdpau-dev [amd64], libraspberrypi-dev [armhf] | rbp-userland-dev-osmc [armhf], libnvmpi1.0.0 [arm64]
+Build-Depends: debhelper (>= 10), libssl-dev, qtbase5-dev, qtquickcontrols2-5-dev, qtdeclarative5-dev, libqt5svg5-dev, libxkbcommon-dev, libopus-dev, libgbm-dev, libdrm-dev, libfreetype6-dev, libasound2-dev, libdbus-1-dev, libegl1-mesa-dev, libgl1-mesa-dev, libgles2-mesa-dev, libglu1-mesa-dev, libibus-1.0-dev, libpulse-dev, libudev-dev, libx11-dev, libxcursor-dev, libxext-dev, libxi-dev, libxinerama-dev, libxrandr-dev, libxss-dev, libxt-dev, libxv-dev, libxxf86vm-dev, EXTRA_BUILD_DEPS
 
 Package: moonlight-qt
 Architecture: any
-Depends: libraspberrypi0 [armhf] | rbp-userland-osmc [armhf], qml-module-qtquick2, qml-module-qtquick-controls2, qml-module-qtquick-layouts, qml-module-qtquick-window2, ${shlibs:Depends}, ${misc:Depends}
+Depends: qml-module-qtquick2, qml-module-qtquick-controls2, qml-module-qtquick-layouts, qml-module-qtquick-window2, ${shlibs:Depends}, ${misc:Depends}, EXTRA_DEPS
 Description: NVIDIA GameStream client
