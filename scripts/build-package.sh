@@ -16,6 +16,9 @@ VERSION=`cat app/version.txt`
 if [ "$TARGET" == "rpi" ]; then
     EXTRA_BUILD_DEPS="libraspberrypi-dev | rbp-userland-dev-osmc"
     EXTRA_DEPS="libraspberrypi0 | rbp-userland-osmc"
+elif [ "$TARGET" == "rpi64" ]; then
+    EXTRA_BUILD_DEPS=""
+    EXTRA_DEPS=""
 elif [ "$TARGET" == "l4t" ]; then
     EXTRA_BUILD_DEPS="libnvmpi1.0.0"
 elif [ "$TARGET" == "desktop" ]; then

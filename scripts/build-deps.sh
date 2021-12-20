@@ -3,11 +3,24 @@ set -e
 BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --enable-avcodec --enable-decoder=h264 --enable-decoder=hevc --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
 
 echo "Building dependencies for $TARGET"
-if [ "$TARGET" == "rpi" ]; then
+if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
+    # We have to build MMAL libraries for aarch64
+    if [ "$TARGET" == "rpi64" ]; then
+        cd /opt/rpi-userland
+        mkdir build
+        cd build
+        cmake -DARM64=ON -DLIBRARY_TYPE=STATIC -DVCOS_PTHREADS_BUILD_SHARED=OFF ..
+        make -j$(nproc)
+        make install
+
+        # We also have to patch the FFmpeg configure script since it doesn't use pkg-config
+        sed -i 's|add_ldflags -L/opt/vc/lib/|add_ldflags -L/opt/vc/lib/ -pthread|g' /opt/FFmpeg/configure
+    fi
+
     # Copy libraspberrypi-dev pkgconfig files into the default location
     mkdir -p /usr/local/lib/pkgconfig
     cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
-    # Enable MMAL decoders
+    # Enable MMAL and VL42 stateless decoders
     EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal --disable-rpi --enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
 elif [ "$TARGET" == "l4t" ]; then
     # Enable NVMPI decoders

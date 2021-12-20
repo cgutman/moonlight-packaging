@@ -9,6 +9,8 @@ environment:
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
       BUILD_SCRIPT: ./build-rpi.sh
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
+      BUILD_SCRIPT: ./build-rpi64.sh
+    - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
       BUILD_SCRIPT: ./build-l4t.sh
 
 install:

@@ -13,3 +13,6 @@
 [submodule "FFmpeg-rpi"]
 	path = FFmpeg-rpi
 	url = https://github.com/cgutman/FFmpeg.git
+[submodule "rpi-userland"]
+	path = rpi-userland
+	url = https://github.com/cgutman/userland.git

@@ -14,11 +14,14 @@ set -e
 # Build the packages
 ./build-l4t.sh
 ./build-rpi.sh
+./build-rpi64.sh
 
 # Push the moonlight-qt packages to Cloudsmith repos
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/bionic out_l4t-bionic/moonlight-qt_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/buster out_rpi-buster/moonlight-qt_*.deb
+#cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/buster out_rpi-buster64/moonlight-qt_*.deb
 
 # Push the moonlight-qt-dbgsym packages to Cloudsmith repos
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/bionic out_l4t-bionic/moonlight-qt-dbgsym_*.ddeb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/buster out_rpi-buster/moonlight-qt-dbgsym_*.deb
+#cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/buster out_rpi-buster64/moonlight-qt-dbgsym_*.deb
