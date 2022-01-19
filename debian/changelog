@@ -1,3 +1,9 @@
+moonlight-qt (3.2.0-1) UNRELEASED; urgency=low
+
+  * Version 3.2.0
+
+ -- Cameron Gutman <aicommander@gmail.com>  Wed, 19 Jan 2022 01:31:00 +0000
+
 moonlight-qt (3.1.4-2) UNRELEASED; urgency=low
 
   * Updated FFmpeg for compatibility with Full KMS on newer kernels
