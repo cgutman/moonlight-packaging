@@ -20,7 +20,7 @@ elif [ "$TARGET" == "rpi64" ]; then
     EXTRA_BUILD_DEPS=""
     EXTRA_DEPS=""
 elif [ "$TARGET" == "l4t" ]; then
-    EXTRA_BUILD_DEPS="libnvmpi1.0.0"
+    EXTRA_BUILD_DEPS=""
 elif [ "$TARGET" == "desktop" ]; then
     EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols, libva-dev, libvdpau-dev"
 else

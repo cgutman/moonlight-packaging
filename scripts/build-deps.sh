@@ -23,8 +23,8 @@ if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
     # Enable MMAL and VL42 stateless decoders
     EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal --disable-rpi --enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
 elif [ "$TARGET" == "l4t" ]; then
-    # Enable NVMPI decoders
-    EXTRA_FFMPEG_ARGS="--enable-nvmpi --enable-decoder=h264_nvmpi --enable-decoder=hevc_nvmpi"
+    # Enable NVV4L2 decoders
+    EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2"
 elif [ "$TARGET" == "desktop" ]; then
     # We need to install the NVDEC headers
     cd /opt/nv-codec-headers
@@ -59,3 +59,9 @@ cd /opt/FFmpeg
 ./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS
 make -j$(nproc)
 make install
+
+if [ "$TARGET" == "l4t" ]; then
+    # Patch libavcodec.pc to provide the proper library path for libnvbuf_utils.so
+    sed -i 's|-lnvbuf_utils|-L/usr/lib/aarch64-linux-gnu/tegra/ -lnvbuf_utils|g' /usr/local/lib/pkgconfig/libavcodec.pc
+    cat /usr/local/lib/pkgconfig/libavcodec.pc
+fi

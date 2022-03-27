@@ -16,3 +16,6 @@
 [submodule "rpi-userland"]
 	path = rpi-userland
 	url = https://github.com/cgutman/userland.git
+[submodule "FFmpeg-l4t"]
+	path = FFmpeg-l4t
+	url = https://gitlab.com/switchroot/switch-l4t-multimedia/FFmpeg.git
