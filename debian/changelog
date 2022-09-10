@@ -1,3 +1,9 @@
+moonlight-qt (4.2.0-1) UNRELEASED; urgency=low
+
+  * Version 4.2.0
+
+ -- Cameron Gutman <aicommander@gmail.com>  Sat, 10 Sep 2022 18:24:00 +0000
+
 moonlight-qt (4.1.0-2) UNRELEASED; urgency=low
 
   * Apply 9daf7b5a362f2aff90e61ad16f8390ec637e5f5b for Raspberry Pi
