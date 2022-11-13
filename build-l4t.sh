@@ -17,7 +17,7 @@ if [ $PULL_EXIT_CODE -eq 0 ]; then
   echo Using pre-built Docker image - cgutman/moonlight-packaging:$TAG_NAME
 else
   echo Pre-built image not available - building cgutman/moonlight-packaging:$TAG_NAME
-  docker build -f $DOCKERFILE -t cgutman/moonlight-packaging:$TAG_NAME .
+  docker build --pull -f $DOCKERFILE -t cgutman/moonlight-packaging:$TAG_NAME .
   echo Built Docker image - cgutman/moonlight-packaging:$TAG_NAME
 fi
 
