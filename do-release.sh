@@ -12,9 +12,10 @@ set -e
 ./push-images.sh
 
 # Build the packages
-./build-l4t.sh
-./build-rpi.sh
-./build-rpi64.sh
+./build-l4t.sh &
+./build-rpi.sh &
+./build-rpi64.sh &
+wait
 
 # Push the moonlight-qt packages to Cloudsmith repos
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/bionic out_l4t-bionic/moonlight-qt_*.deb
