@@ -15,13 +15,14 @@ if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
 
         # We also have to patch the FFmpeg configure script since it doesn't use pkg-config
         sed -i 's|add_ldflags -L/opt/vc/lib/|add_ldflags -L/opt/vc/lib/ -pthread|g' /opt/FFmpeg/configure
+        sed -i 's|-lmmal_vc_client|-lmmal_vc_client -lbcm_host -lvcos -lvcsm -lvchostif -lvchiq_arm|g' /opt/FFmpeg/configure
     fi
 
     # Copy libraspberrypi-dev pkgconfig files into the default location
     mkdir -p /usr/local/lib/pkgconfig
     cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
     # Enable MMAL and VL42 stateless decoders
-    EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal --disable-rpi --enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
+    EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal --enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
 elif [ "$TARGET" == "l4t" ]; then
     # Enable NVV4L2 decoders
     EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2"
