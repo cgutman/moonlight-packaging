@@ -12,9 +12,9 @@ set -e
 ./push-images.sh
 
 # Build the packages
-./build-l4t.sh &
-./build-rpi.sh &
-./build-rpi64.sh &
+./build-l4t.sh $1 &
+./build-rpi.sh $1 &
+./build-rpi64.sh $1 &
 wait
 
 # Push the moonlight-qt packages to Cloudsmith repos
