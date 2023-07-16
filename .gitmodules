@@ -19,3 +19,6 @@
 [submodule "FFmpeg-l4t"]
 	path = FFmpeg-l4t
 	url = https://gitlab.com/switchroot/switch-l4t-multimedia/FFmpeg.git
+[submodule "dav1d"]
+	path = dav1d
+	url = https://code.videolan.org/videolan/dav1d.git

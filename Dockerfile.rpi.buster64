@@ -13,6 +13,7 @@ RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     rm -rf /var/lib/apt/lists/*
 
 COPY rpi-userland /opt/rpi-userland
+COPY dav1d /opt/dav1d
 COPY FFmpeg-rpi /opt/FFmpeg
 COPY SDL2 /opt/SDL2
 COPY SDL_ttf /opt/SDL_ttf

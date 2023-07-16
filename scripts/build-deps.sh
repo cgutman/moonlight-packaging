@@ -56,8 +56,20 @@ sed -i 's/-lSDL2_ttf/-lSDL2_ttf -lfreetype/g' SDL2_ttf.pc
 cat SDL2_ttf.pc
 make install
 
+# FFmpeg-l4t is too old to support dav1d 1.2.1
+if [ "$TARGET" != "l4t" ]; then
+    # Build and install libdav1d
+    cd /opt/dav1d
+    meson setup build -Ddefault_library=static -Dbuildtype=debugoptimized -Denable_tools=false -Denable_tests=false
+    ninja -C build
+    ninja install -C build
+
+    # Enable libdav1d during FFmpeg build
+    DAV1D_FFMPEG_ARGS="--enable-libdav1d --enable-decoder=libdav1d"
+fi
+
 cd /opt/FFmpeg
-./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS
+./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS $DAV1D_FFMPEG_ARGS
 make -j$(nproc)
 make install
 
