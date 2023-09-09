@@ -16,9 +16,11 @@ VERSION=`cat app/version.txt`
 if [ "$TARGET" == "rpi" ]; then
     EXTRA_BUILD_DEPS="libraspberrypi-dev | rbp-userland-dev-osmc"
     EXTRA_DEPS="libraspberrypi0 | rbp-userland-osmc"
+    EXTRA_CONFIG="CONFIG+=glslow"
 elif [ "$TARGET" == "rpi64" ]; then
     EXTRA_BUILD_DEPS=""
     EXTRA_DEPS=""
+    EXTRA_CONFIG="CONFIG+=glslow"
 elif [ "$TARGET" == "l4t" ]; then
     EXTRA_BUILD_DEPS=""
 elif [ "$TARGET" == "desktop" ]; then
@@ -50,6 +52,10 @@ cp -r /opt/debian .
 sed -i "s/EXTRA_BUILD_DEPS/$EXTRA_BUILD_DEPS/g" debian/control
 sed -i "s/EXTRA_DEPS/$EXTRA_DEPS/g" debian/control
 cat debian/control
+
+# Patch the rules file with target-specific config options
+sed -i "s/EXTRA_CONFIG/$EXTRA_CONFIG/g" debian/rules
+cat debian/rules
 
 # Build the package
 debuild -us -uc
