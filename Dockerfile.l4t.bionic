@@ -1,6 +1,7 @@
 FROM nvcr.io/nvidia/l4t-base:r32.3.1
 
 ENV TARGET=l4t
+ENV DISTRO=bionic
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \

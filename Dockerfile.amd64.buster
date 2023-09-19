@@ -1,6 +1,7 @@
 FROM amd64/debian:buster
 
 ENV TARGET=desktop
+ENV DISTRO=buster
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \

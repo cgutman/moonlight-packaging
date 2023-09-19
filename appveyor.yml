@@ -5,13 +5,13 @@ clone_depth: 1
 environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-amd64.sh
+      BUILD_SCRIPT: ./build-amd64-buster.sh
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-rpi.sh
+      BUILD_SCRIPT: ./build-rpi-buster.sh
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-rpi64.sh
+      BUILD_SCRIPT: ./build-rpi64-buster.sh
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-l4t.sh
+      BUILD_SCRIPT: ./build-l4t-bionic.sh
 
 install:
   - sh: 'sudo apt update || true'

@@ -18,16 +18,28 @@ if [ "$TARGET" == "rpi" ]; then
     EXTRA_DEPS="libraspberrypi0 | rbp-userland-osmc"
     EXTRA_CONFIG="CONFIG+=glslow"
 elif [ "$TARGET" == "rpi64" ]; then
-    EXTRA_BUILD_DEPS=""
-    EXTRA_DEPS=""
     EXTRA_CONFIG="CONFIG+=glslow"
 elif [ "$TARGET" == "l4t" ]; then
-    EXTRA_BUILD_DEPS=""
+    EXTRA_DEPS=""
 elif [ "$TARGET" == "desktop" ]; then
     EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols, libva-dev, libvdpau-dev"
+elif [ "$TARGET" == "embedded" ]; then
+    EXTRA_CONFIG="CONFIG+=glslow"
 else
     echo "Unrecognized target: $TARGET"
     exit 1
+fi
+
+# Determine extra distro-specific dependencies
+if [ "$DISTRO" != "buster" ] && [ $DISTRO != "bionic" ]; then
+    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype-dev"
+else
+    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype6-dev"
+fi
+if [ "$DISTRO" != "bionic" ]; then
+    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libgl-dev"
+else
+    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libgl1-mesa-dev"
 fi
 
 # Create a build directory

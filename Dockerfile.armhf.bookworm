@@ -1,20 +1,15 @@
-FROM arm32v7/debian:buster
+FROM arm32v7/debian:bookworm
 
-ENV TARGET=rpi
-ENV DISTRO=buster
+ENV TARGET=embedded
+ENV DISTRO=bookworm
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
-    apt-get install -y --no-install-recommends gnupg && \
-    echo "deb http://archive.raspberrypi.org/debian/ $DISTRO main" >> /etc/apt/sources.list && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 82B129927FA3303E && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends libraspberrypi-dev linux-libc-dev && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
 COPY dav1d /opt/dav1d
-COPY FFmpeg-rpi /opt/FFmpeg
+COPY FFmpeg /opt/FFmpeg
 COPY SDL2 /opt/SDL2
 COPY SDL_ttf /opt/SDL_ttf
 

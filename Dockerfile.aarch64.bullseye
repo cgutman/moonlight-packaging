@@ -1,20 +1,18 @@
-FROM arm64v8/debian:buster
+FROM arm64v8/debian:bullseye
 
-ENV TARGET=rpi64
+ENV TARGET=embedded
+ENV DISTRO=bullseye
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
-    apt-get install -y --no-install-recommends gnupg && \
-    echo "deb http://archive.raspberrypi.org/debian/ buster main" >> /etc/apt/sources.list && \
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 82B129927FA3303E && \
+    echo "deb http://deb.debian.org/debian bullseye-backports main" >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends linux-libc-dev && \
+    apt-get install -y --no-install-recommends linux-libc-dev/bullseye-backports && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
-COPY rpi-userland /opt/rpi-userland
 COPY dav1d /opt/dav1d
-COPY FFmpeg-rpi /opt/FFmpeg
+COPY FFmpeg /opt/FFmpeg
 COPY SDL2 /opt/SDL2
 COPY SDL_ttf /opt/SDL_ttf
 
