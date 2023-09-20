@@ -53,6 +53,7 @@ make install
 # there's no way to tell QMake to use the Libs.private section, so we have to replace
 # Libs with Libs.private ourselves prior to installation.
 cd /opt/SDL_ttf
+./autogen.sh
 ./configure --enable-static --disable-shared
 make -j$(nproc)
 sed -i 's/-lSDL2_ttf/-lSDL2_ttf -lfreetype/g' SDL2_ttf.pc
