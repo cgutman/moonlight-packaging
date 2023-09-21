@@ -12,6 +12,8 @@ RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     echo >> /opt/nvidia/l4t-packages/.nv-l4t-disable-boot-fw-update-in-preinstall && \
     apt-get update && \
     apt-get install -y -o Dpkg::Options::="--force-confold" libv4l-dev nvidia-l4t-multimedia-utils && \
+    wget http://http.us.debian.org/debian/pool/main/a/automake-1.16/automake_1.16.1-4_all.deb && \
+    dpkg -i automake_1.16*.deb && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 
