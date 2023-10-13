@@ -14,11 +14,20 @@ VERSION=`cat app/version.txt`
 
 # Determine extra target-specific dependencies
 if [ "$TARGET" == "rpi" ]; then
-    EXTRA_BUILD_DEPS="libraspberrypi-dev | rbp-userland-dev-osmc"
-    EXTRA_DEPS="libraspberrypi0 | rbp-userland-osmc"
     EXTRA_CONFIG="CONFIG+=glslow"
+    if [ "$DISTRO" = "buster" ]; then
+        EXTRA_BUILD_DEPS="libraspberrypi-dev | rbp-userland-dev-osmc"
+        EXTRA_DEPS="libraspberrypi0 | rbp-userland-osmc"
+    else
+        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
+        EXTRA_CONFIG="$EXTRA_CONFIG CONFIG+=disable-mmal"
+    fi
 elif [ "$TARGET" == "rpi64" ]; then
     EXTRA_CONFIG="CONFIG+=glslow"
+    if [ "$DISTRO" != "buster" ]; then
+        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
+        EXTRA_CONFIG="$EXTRA_CONFIG CONFIG+=disable-mmal"
+    fi
 elif [ "$TARGET" == "l4t" ]; then
     EXTRA_DEPS=""
 elif [ "$TARGET" == "desktop" ]; then

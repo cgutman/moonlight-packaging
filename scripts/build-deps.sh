@@ -4,8 +4,8 @@ BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --
 
 echo "Building dependencies for $TARGET"
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
-    # We have to build MMAL libraries for aarch64
-    if [ "$TARGET" == "rpi64" ]; then
+    # We have to build MMAL libraries for aarch64 on Buster
+    if [ "$TARGET" == "rpi64" ] && [ "$DISTRO" == "buster" ]; then
         cd /opt/rpi-userland
         mkdir build
         cd build
@@ -18,11 +18,17 @@ if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
         sed -i 's|-lmmal_vc_client|-lmmal_vc_client -lbcm_host -lvcos -lvcsm -lvchostif -lvchiq_arm|g' /opt/FFmpeg/configure
     fi
 
-    # Copy libraspberrypi-dev pkgconfig files into the default location
-    mkdir -p /usr/local/lib/pkgconfig
-    cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
-    # Enable MMAL and VL42 stateless decoders
-    EXTRA_FFMPEG_ARGS="--enable-mmal --enable-decoder=h264_mmal --enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
+    # Enable VL42 stateless decoders
+    EXTRA_FFMPEG_ARGS="--enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
+
+    if [ "$DISTRO" == "buster" ]; then
+        # Copy libraspberrypi-dev pkgconfig files into the default location
+        mkdir -p /usr/local/lib/pkgconfig
+        cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
+
+        # Enable MMAL on Buster
+        EXTRA_FFMPEG_ARGS="$EXTRA_FFMPEG_ARGS --enable-mmal --enable-decoder=h264_mmal"
+    fi
 elif [ "$TARGET" == "l4t" ]; then
     # Enable NVV4L2 decoders
     EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2"

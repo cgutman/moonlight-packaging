@@ -6,7 +6,7 @@ apt-get install -y curl g++ make ninja-build meson devscripts fakeroot debhelper
 apt-get install -y --no-install-recommends libssl-dev qtbase5-dev qtquickcontrols2-5-dev qtdeclarative5-dev libqt5svg5-dev libopus-dev
 
 if [ "$DISTRO" != "buster" ] && [ "$DISTRO" != "bionic" ]; then
-    apt-get install -y libfreetype-dev
+    apt-get install -y libfreetype-dev libpipewire-0.3-dev
 else
     apt-get install -y libfreetype6-dev
 fi
@@ -15,4 +15,10 @@ if [ "$DISTRO" != "bionic" ]; then
     apt-get install -y libgl-dev
 else
     apt-get install -y libgl1-mesa-dev
+fi
+
+if [ "$DISTRO" != "buster" ]; then
+    if [ "$TARGET" = "rpi" ] || [ "$TARGET" = "rpi64" ]; then
+        apt-get install -y wayland-protocols libwayland-dev libdecor-0-dev
+    fi
 fi
