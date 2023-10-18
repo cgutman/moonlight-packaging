@@ -1,3 +1,9 @@
+moonlight-qt (5.0.0-1) UNRELEASED; urgency=low
+
+  * Version 5.0.0
+
+ -- Cameron Gutman <aicommander@gmail.com>  Wed, 18 Oct 2023 06:00:00 +0000
+
 moonlight-qt (4.3.1-2) UNRELEASED; urgency=low
 
   * Updated FFmpeg libraries for RPi and L4T
