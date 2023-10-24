@@ -17,6 +17,7 @@ set -e
 ./build-rpi64-buster.sh $1 &
 ./build-armhf-bullseye.sh $1 &
 ./build-aarch64-bullseye.sh $1 &
+wait
 ./build-rpi-bookworm.sh $1 &
 ./build-rpi64-bookworm.sh $1 &
 ./build-armhf-bookworm.sh $1 &
