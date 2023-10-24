@@ -1,0 +1,85 @@
+# Allow access to the hidraw device corresponding to joysticks by adding the uaccess tag
+# (for logind-managed sessions) and changing ownership to the input group (for non-logind
+# cases). Hidraw access is required for SDL's HIDAPI joystick drivers to work.
+#
+# This solution is far from ideal but it's what we're stuck with until an upstream solution
+# exists in systemd. For reference, see https://github.com/systemd/systemd/pull/22860.
+
+# Rather than maintaining a big list of VID/PID combos, let's match by driver.
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="sony", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="playstation", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="stadia", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="hid-steam", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="shield", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="wiimote", ENV{ID_GAME_CONTROLLER}="1"
+
+# We'll also match by VID/PID for some of the common gamepads. Most of the items come from
+# https://github.com/ValveSoftware/steam-devices/blob/master/60-steam-input.rules
+
+# DualShock 3 over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0268", ENV{ID_GAME_CONTROLLER}="1"
+
+# DualShock 3 over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*054C:0268*", ENV{ID_GAME_CONTROLLER}="1"
+
+# DualShock 4 over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c4", ENV{ID_GAME_CONTROLLER}="1"
+
+# DualShock 4 wireless adapter over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ba0", ENV{ID_GAME_CONTROLLER}="1"
+
+# DualShock 4 Slim over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="09cc", ENV{ID_GAME_CONTROLLER}="1"
+
+# DualShock 4 over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*054C:05C4*", ENV{ID_GAME_CONTROLLER}="1"
+
+# DualShock 4 Slim over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*054C:09CC*", ENV{ID_GAME_CONTROLLER}="1"
+
+# PS5 DualSense controller over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6", ENV{ID_GAME_CONTROLLER}="1"
+
+# PS5 DualSense controller over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*054C:0CE6*", ENV{ID_GAME_CONTROLLER}="1"
+
+# PS5 DualSense Edge controller over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0df2", ENV{ID_GAME_CONTROLLER}="1"
+
+# PS5 DualSense Edge controller over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*054C:0DF2*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Switch Pro Controller over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Switch Pro Controller over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*057E:2009*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Stadia controller
+KERNEL=="hidraw*", KERNELS=="*18D1:9400*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9400", ENV{ID_GAME_CONTROLLER}="1"
+
+# NVIDIA Shield controllers
+KERNEL=="hidraw*", KERNELS=="*0955:7210*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*0955:7214*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7210", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7214", ENV{ID_GAME_CONTROLLER}="1"
+
+# Amazon Luna controllers
+KERNEL=="hidraw*", KERNELS=="*0171:0419*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", ATTRS{idVendor}=="1949", ATTRS{idProduct}=="0419", ENV{ID_GAME_CONTROLLER}="1"
+
+# Xbox One/Series controllers (Bluetooth)
+KERNEL=="hidraw*", KERNELS=="*045E:0B0C*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*045E:0B21*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*045E:0B05*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*045E:0B22*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*045E:02E0*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*045E:02FD*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*045E:0B20*", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", KERNELS=="*045E:0B13*", ENV{ID_GAME_CONTROLLER}="1"
+
+# If #22860 is adopted in systemd, this will magically start working and obviate the need
+# for the rest of the hardcoded rules in this file. Otherwise, this applies the permission
+# adjustments for all the devices listed above.
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ENV{ID_GAME_CONTROLLER}=="?*", GROUP="input", TAG+="uaccess"
