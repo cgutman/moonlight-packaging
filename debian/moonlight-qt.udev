@@ -12,6 +12,7 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="stadia", ENV{ID_GAME_CONTROLLE
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="hid-steam", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="shield", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="wiimote", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="nintendo", ENV{ID_GAME_CONTROLLER}="1"
 
 # We'll also match by VID/PID for some of the common gamepads. Most of the items come from
 # https://github.com/ValveSoftware/steam-devices/blob/master/60-steam-input.rules
