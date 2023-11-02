@@ -1,3 +1,9 @@
+moonlight-qt (5.0.1-1) UNRELEASED; urgency=low
+
+  * Version 5.0.1
+
+ -- Cameron Gutman <aicommander@gmail.com>  Thu, 02 Nov 2023 03:00:00 +0000
+
 moonlight-qt (5.0.0-2) UNRELEASED; urgency=low
 
   * Added udev rules to allow SDL HIDAPI joystick drivers to work
