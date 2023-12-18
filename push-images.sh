@@ -1,3 +1,11 @@
+fail()
+{
+	echo "$1" 1>&2
+	exit 1
+}
+
+git diff-index --quiet HEAD -- || fail "Images must not be pushed with uncommitted changes!"
+
 set -e
 
 TAG_UNIQUE_ID=`git ls-tree HEAD | sha256sum | cut -c-16`
