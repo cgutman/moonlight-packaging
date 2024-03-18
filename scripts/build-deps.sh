@@ -30,8 +30,8 @@ if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
         EXTRA_FFMPEG_ARGS="$EXTRA_FFMPEG_ARGS --enable-mmal --enable-decoder=h264_mmal"
     fi
 elif [ "$TARGET" == "l4t" ]; then
-    # Enable NVV4L2 decoders
-    EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2"
+    # Enable NVV4L2 decoders (and VP9 decoder to work around compilation error in NVV4L2 fallback code)
+    EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2 --enable-decoder=vp9"
 elif [ "$TARGET" == "desktop" ]; then
     # We need to install the NVDEC headers
     cd /opt/nv-codec-headers
@@ -67,7 +67,7 @@ cat SDL2_ttf.pc
 make install
 
 # FFmpeg-l4t is too old to support dav1d 1.2.1
-if [ "$TARGET" != "l4t" ]; then
+if [ "$TARGET" != "l4t" ] || [ "$DISTRO" != "bionic" ]; then
     # Build and install libdav1d
     cd /opt/dav1d
     meson setup build -Ddefault_library=static -Dbuildtype=debugoptimized -Denable_tools=false -Denable_tests=false
@@ -85,6 +85,6 @@ make install
 
 if [ "$TARGET" == "l4t" ]; then
     # Patch libavcodec.pc to provide the proper library path for libnvbuf_utils.so
-    sed -i 's|-lnvbuf_utils|-L/usr/lib/aarch64-linux-gnu/tegra/ -lnvbuf_utils|g' /usr/local/lib/pkgconfig/libavcodec.pc
+    sed -i 's|-lnvbuf_utils|-L/usr/lib/aarch64-linux-gnu/tegra -Wl,-rpath=/usr/lib/aarch64-linux-gnu/tegra -lnvbuf_utils|g' /usr/local/lib/pkgconfig/libavcodec.pc
     cat /usr/local/lib/pkgconfig/libavcodec.pc
 fi

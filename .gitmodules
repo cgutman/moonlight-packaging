@@ -22,3 +22,6 @@
 [submodule "dav1d"]
 	path = dav1d
 	url = https://code.videolan.org/videolan/dav1d.git
+[submodule "FFmpeg-l4t-new"]
+	path = FFmpeg-l4t-new
+	url = https://github.com/theofficialgman/FFmpeg.git
