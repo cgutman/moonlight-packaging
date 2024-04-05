@@ -13,6 +13,7 @@ set -e
 
 # Build the packages
 ./build-l4t-bionic.sh $1 &
+./build-l4t-noble.sh $1 &
 ./build-rpi-buster.sh $1 &
 ./build-rpi64-buster.sh $1 &
 ./build-armhf-bullseye.sh $1 &
@@ -29,6 +30,7 @@ wait
 # Push the moonlight-qt packages to Cloudsmith repos
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/bionic out_l4t-bionic/moonlight-qt_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/jammy out_l4t-jammy/moonlight-qt_*.deb
+cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/noble out_l4t-noble/moonlight-qt_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/buster out_rpi-buster/moonlight-qt_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/bullseye out_rpi-buster/moonlight-qt_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/bookworm out_rpi-bookworm/moonlight-qt_*.deb
@@ -44,6 +46,7 @@ cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/sid out_riscv64
 # Push the moonlight-qt-dbgsym packages to Cloudsmith repos
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/bionic out_l4t-bionic/moonlight-qt-dbgsym_*.ddeb
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/jammy out_l4t-jammy/moonlight-qt-dbgsym_*.ddeb
+cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/noble out_l4t-noble/moonlight-qt-dbgsym_*.ddeb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/buster out_rpi-buster/moonlight-qt-dbgsym_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/bullseye out_rpi-buster/moonlight-qt-dbgsym_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/raspbian/bookworm out_rpi-bookworm/moonlight-qt-dbgsym_*.deb
