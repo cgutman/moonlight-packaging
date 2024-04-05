@@ -17,8 +17,6 @@ else
     apt-get install -y libgl1-mesa-dev
 fi
 
-if [ "$DISTRO" != "buster" ]; then
-    if [ "$TARGET" = "rpi" ] || [ "$TARGET" = "rpi64" ]; then
-        apt-get install -y wayland-protocols libwayland-dev libdecor-0-dev
-    fi
+if [ "$DISTRO" != "buster" ] && [ "$DISTRO" != "bullseye" ] && [ "$DISTRO" != "bionic" ]; then
+    apt-get install -y wayland-protocols libwayland-dev libdecor-0-dev
 fi

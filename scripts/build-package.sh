@@ -29,18 +29,28 @@ elif [ "$TARGET" == "rpi64" ]; then
         EXTRA_CONFIG="$EXTRA_CONFIG CONFIG+=disable-mmal"
     fi
 elif [ "$TARGET" == "l4t" ]; then
-    EXTRA_DEPS=""
+    if [ "$DISTRO" != "bionic" ]; then
+        EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols"
+        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
+    else
+        EXTRA_DEPS=""
+    fi
 elif [ "$TARGET" == "desktop" ]; then
     EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols, libva-dev, libvdpau-dev"
+    EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
 elif [ "$TARGET" == "embedded" ]; then
     EXTRA_CONFIG="CONFIG+=gpuslow"
+    if [ "$DISTRO" != "bullseye" ]; then
+        EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols"
+        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
+    fi
 else
     echo "Unrecognized target: $TARGET"
     exit 1
 fi
 
 # Determine extra distro-specific dependencies
-if [ "$DISTRO" != "buster" ] && [ $DISTRO != "bionic" ]; then
+if [ "$DISTRO" != "buster" ] && [ "$DISTRO" != "bionic" ]; then
     EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype-dev"
 else
     EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype6-dev"
