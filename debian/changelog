@@ -1,3 +1,9 @@
+moonlight-qt (6.0.0-1) UNRELEASED; urgency=low
+
+  * Version 6.0.0
+
+ -- Cameron Gutman <aicommander@gmail.com>  Thu, 06 Jun 2024 04:30:00 +0000
+
 moonlight-qt (5.0.1-1) UNRELEASED; urgency=low
 
   * Version 5.0.1
