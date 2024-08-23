@@ -82,9 +82,3 @@ cd /opt/FFmpeg
 ./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS $DAV1D_FFMPEG_ARGS
 make -j$(nproc)
 make install
-
-if [ "$TARGET" == "l4t" ]; then
-    # Patch libavcodec.pc to provide the proper library path for libnvbuf_utils.so
-    sed -i 's|-lnvbuf_utils|-L/usr/lib/aarch64-linux-gnu/tegra -Wl,-rpath=/usr/lib/aarch64-linux-gnu/tegra -lnvbuf_utils|g' /usr/local/lib/pkgconfig/libavcodec.pc
-    cat /usr/local/lib/pkgconfig/libavcodec.pc
-fi
