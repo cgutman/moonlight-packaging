@@ -1,6 +1,6 @@
 set -e
 
-BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --disable-vulkan --enable-avcodec --enable-swscale --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
+BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --disable-vulkan --enable-avcodec --enable-swscale --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 --enable-libdav1d --enable-decoder=libdav1d --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
 
 echo "Building dependencies for $TARGET"
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
@@ -66,17 +66,11 @@ sed -i 's/-lSDL2_ttf/-lSDL2_ttf -lfreetype/g' SDL2_ttf.pc
 cat SDL2_ttf.pc
 make install
 
-# FFmpeg-l4t is too old to support dav1d 1.2.1
-if [ "$TARGET" != "l4t" ] || [ "$DISTRO" != "bionic" ]; then
-    # Build and install libdav1d
-    cd /opt/dav1d
-    meson setup build -Ddefault_library=static -Dbuildtype=debugoptimized -Denable_tools=false -Denable_tests=false
-    ninja -C build
-    ninja install -C build
-
-    # Enable libdav1d during FFmpeg build
-    DAV1D_FFMPEG_ARGS="--enable-libdav1d --enable-decoder=libdav1d"
-fi
+# Build and install libdav1d
+cd /opt/dav1d
+meson setup build -Ddefault_library=static -Dbuildtype=debugoptimized -Denable_tools=false -Denable_tests=false
+ninja -C build
+ninja install -C build
 
 cd /opt/FFmpeg
 ./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS $DAV1D_FFMPEG_ARGS
