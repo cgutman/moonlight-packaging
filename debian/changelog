@@ -1,3 +1,11 @@
+moonlight-qt (6.1.0-2) UNRELEASED; urgency=low
+
+  * Apply fix for incorrectly scaled video (upstream commit 6b11f43302)
+
+  * Add libgles2 to Recommends to fix flickering on minimal Pi OS image
+
+ -- Cameron Gutman <aicommander@gmail.com>  Fri, 20 Sep 2024 05:30:00 +0000
+
 moonlight-qt (6.1.0-1) UNRELEASED; urgency=low
 
   * Version 6.1.0
