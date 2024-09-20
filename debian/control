@@ -8,5 +8,5 @@ Build-Depends: debhelper (>= 10), libssl-dev, qtbase5-dev, qtquickcontrols2-5-de
 Package: moonlight-qt
 Architecture: any
 Depends: qml-module-qtquick2, qml-module-qtquick-controls2, qml-module-qtquick-layouts, qml-module-qtquick-window2, ${shlibs:Depends}, ${misc:Depends}, EXTRA_DEPS
-Recommends: libgl1-mesa-dri
+Recommends: libgl1-mesa-dri, libgles2
 Description: NVIDIA GameStream client
