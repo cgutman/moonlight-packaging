@@ -1,6 +1,6 @@
 set -e
 
-BASE_FFMPEG_ARGS="--enable-pic --enable-static --disable-shared --disable-all --disable-vulkan --enable-avcodec --enable-swscale --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 --enable-libdav1d --enable-decoder=libdav1d --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
+BASE_FFMPEG_ARGS="--fatal-warnings --enable-pic --enable-static --disable-shared --disable-all --disable-vulkan --enable-avcodec --enable-swscale --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 --enable-libdav1d --enable-decoder=libdav1d --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
 
 echo "Building dependencies for $TARGET"
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
@@ -18,8 +18,8 @@ if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
         sed -i 's|-lmmal_vc_client|-lmmal_vc_client -lbcm_host -lvcos -lvcsm -lvchostif -lvchiq_arm|g' /opt/FFmpeg/configure
     fi
 
-    # Enable VL42 stateless decoders
-    EXTRA_FFMPEG_ARGS="--enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
+    # Enable HEVC VL42 stateless decoder (H.264 is stateful on Pi 4 and absent on Pi 5)
+    EXTRA_FFMPEG_ARGS="--enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=hevc_v4l2request"
 
     if [ "$DISTRO" == "buster" ]; then
         # Copy libraspberrypi-dev pkgconfig files into the default location

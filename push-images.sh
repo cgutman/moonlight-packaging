@@ -15,7 +15,12 @@ docker build --pull -f Dockerfile.rpi64.buster -t cgutman/moonlight-packaging:rp
 docker build --pull -f Dockerfile.rpi.bookworm -t cgutman/moonlight-packaging:rpi-bookworm_$TAG_UNIQUE_ID . &
 docker build --pull -f Dockerfile.rpi64.bookworm -t cgutman/moonlight-packaging:rpi64-bookworm_$TAG_UNIQUE_ID . &
 docker build --pull -f Dockerfile.l4t.bionic -t cgutman/moonlight-packaging:l4t-bionic_$TAG_UNIQUE_ID . &
+wait
 docker build --pull -f Dockerfile.l4t.noble -t cgutman/moonlight-packaging:l4t-noble_$TAG_UNIQUE_ID . &
+docker build --pull -f Dockerfile.aarch64.jammy -t cgutman/moonlight-packaging:aarch64-jammy_$TAG_UNIQUE_ID . &
+docker build --pull -f Dockerfile.aarch64.noble -t cgutman/moonlight-packaging:aarch64-noble_$TAG_UNIQUE_ID . &
+docker build --pull -f Dockerfile.armhf.jammy -t cgutman/moonlight-packaging:armhf-jammy_$TAG_UNIQUE_ID . &
+docker build --pull -f Dockerfile.armhf.noble -t cgutman/moonlight-packaging:armhf-noble_$TAG_UNIQUE_ID . &
 wait
 docker build --pull -f Dockerfile.aarch64.bullseye -t cgutman/moonlight-packaging:aarch64-bullseye_$TAG_UNIQUE_ID . &
 docker build --pull -f Dockerfile.aarch64.bookworm -t cgutman/moonlight-packaging:aarch64-bookworm_$TAG_UNIQUE_ID . &
@@ -36,4 +41,8 @@ docker push cgutman/moonlight-packaging:armhf-bullseye_$TAG_UNIQUE_ID
 docker push cgutman/moonlight-packaging:armhf-bookworm_$TAG_UNIQUE_ID
 docker push cgutman/moonlight-packaging:aarch64-bullseye_$TAG_UNIQUE_ID
 docker push cgutman/moonlight-packaging:aarch64-bookworm_$TAG_UNIQUE_ID
+docker push cgutman/moonlight-packaging:armhf-jammy_$TAG_UNIQUE_ID
+docker push cgutman/moonlight-packaging:armhf-noble_$TAG_UNIQUE_ID
+docker push cgutman/moonlight-packaging:aarch64-jammy_$TAG_UNIQUE_ID
+docker push cgutman/moonlight-packaging:aarch64-noble_$TAG_UNIQUE_ID
 docker push cgutman/moonlight-packaging:riscv64-sid_$TAG_UNIQUE_ID

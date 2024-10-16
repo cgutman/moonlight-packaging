@@ -1,7 +1,7 @@
-FROM arm32v7/debian:bullseye
+FROM arm32v7/ubuntu:noble
 
 ENV TARGET=embedded
-ENV DISTRO=bullseye
+ENV DISTRO=noble
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \

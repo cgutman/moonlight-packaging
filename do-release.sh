@@ -16,8 +16,13 @@ set -e
 ./build-l4t-noble.sh $1 &
 ./build-rpi-buster.sh $1 &
 ./build-rpi64-buster.sh $1 &
+./build-aarch64-jammy.sh $1 &
+wait
+./build-armhf-jammy.sh $1 &
 ./build-armhf-bullseye.sh $1 &
 ./build-aarch64-bullseye.sh $1 &
+./build-armhf-noble.sh $1 &
+./build-aarch64-noble.sh $1 &
 wait
 ./build-rpi-bookworm.sh $1 &
 ./build-rpi64-bookworm.sh $1 &
@@ -42,6 +47,10 @@ cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/bookworm out_ar
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/bullseye out_aarch64-bullseye/moonlight-qt_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/bookworm out_aarch64-bookworm/moonlight-qt_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/sid out_riscv64-sid/moonlight-qt_*.deb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/jammy out_armhf-jammy/moonlight-qt_*.deb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/noble out_armhf-noble/moonlight-qt_*.deb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/jammy out_aarch64-jammy/moonlight-qt_*.deb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/noble out_aarch64-noble/moonlight-qt_*.deb
 
 # Push the moonlight-qt-dbgsym packages to Cloudsmith repos
 cloudsmith push deb moonlight-game-streaming/moonlight-l4t/ubuntu/bionic out_l4t-bionic/moonlight-qt-dbgsym_*.ddeb
@@ -58,3 +67,7 @@ cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/bookworm out_ar
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/bullseye out_aarch64-bullseye/moonlight-qt-dbgsym_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/bookworm out_aarch64-bookworm/moonlight-qt-dbgsym_*.deb
 cloudsmith push deb moonlight-game-streaming/moonlight-qt/debian/sid out_riscv64-sid/moonlight-qt-dbgsym_*.deb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/jammy out_armhf-jammy/moonlight-qt-dbgsym_*.ddeb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/noble out_armhf-noble/moonlight-qt-dbgsym_*.ddeb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/jammy out_aarch64-jammy/moonlight-qt-dbgsym_*.ddeb
+cloudsmith push deb moonlight-game-streaming/moonlight-qt/ubuntu/noble out_aarch64-noble/moonlight-qt-dbgsym_*.ddeb
