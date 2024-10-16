@@ -1,3 +1,11 @@
+moonlight-qt (6.1.0-3) UNRELEASED; urgency=low
+
+  * Update FFmpeg to 7.1 for generic embedded packages
+
+  * Update SDL to fix running in Wayland without desktop GL
+
+ -- Cameron Gutman <aicommander@gmail.com>  Wed, 16 Oct 2024 07:00:00 +0000
+
 moonlight-qt (6.1.0-2) UNRELEASED; urgency=low
 
   * Apply fix for incorrectly scaled video (upstream commit 6b11f43302)
