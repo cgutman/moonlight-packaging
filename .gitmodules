@@ -10,9 +10,6 @@
 [submodule "SDL_ttf"]
 	path = SDL_ttf
 	url = https://github.com/libsdl-org/SDL_ttf.git
-[submodule "FFmpeg-rpi"]
-	path = FFmpeg-rpi
-	url = https://github.com/cgutman/FFmpeg.git
 [submodule "dav1d"]
 	path = dav1d
 	url = https://code.videolan.org/videolan/dav1d.git

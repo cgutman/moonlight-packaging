@@ -1,11 +1,12 @@
 set -e
 
 BASE_FFMPEG_ARGS="--fatal-warnings --enable-pic --enable-static --disable-shared --disable-all --disable-vulkan --enable-avcodec --enable-swscale --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 --enable-libdav1d --enable-decoder=libdav1d --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
+USE_PLATFORM_FFMPEG=0
 
 echo "Building dependencies for $TARGET"
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
-    # Enable HEVC VL42 stateless decoder (H.264 is stateful on Pi 4 and absent on Pi 5)
-    EXTRA_FFMPEG_ARGS="--enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=hevc_v4l2request"
+    # Use the platform-provided FFmpeg version on Raspberry Pi OS
+    USE_PLATFORM_FFMPEG=1
 elif [ "$TARGET" == "l4t" ]; then
     # Enable NVV4L2 decoders (and VP9 decoder to work around compilation error in NVV4L2 fallback code)
     EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2 --enable-decoder=vp9"
@@ -43,13 +44,17 @@ sed -i 's/-lSDL2_ttf/-lSDL2_ttf -lfreetype/g' SDL2_ttf.pc
 cat SDL2_ttf.pc
 make install
 
-# Build and install libdav1d
-cd /opt/dav1d
-meson setup build -Ddefault_library=static -Dbuildtype=debugoptimized -Denable_tools=false -Denable_tests=false
-ninja -C build
-ninja install -C build
+# Build FFmpeg and its dependencies if we're not using the platform version
+if [ "$USE_PLATFORM_FFMPEG" == "0" ]; then
+    # Build and install libdav1d
+    cd /opt/dav1d
+    meson setup build -Ddefault_library=static -Dbuildtype=debugoptimized -Denable_tools=false -Denable_tests=false
+    ninja -C build
+    ninja install -C build
 
-cd /opt/FFmpeg
-./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS $DAV1D_FFMPEG_ARGS
-make -j$(nproc)
-make install
+    # Build and install FFmpeg
+    cd /opt/FFmpeg
+    ./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS $DAV1D_FFMPEG_ARGS
+    make -j$(nproc)
+    make install
+fi
