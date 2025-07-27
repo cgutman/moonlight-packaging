@@ -29,12 +29,8 @@ elif [ "$TARGET" == "rpi64" ]; then
         EXTRA_CONFIG="$EXTRA_CONFIG CONFIG+=disable-mmal"
     fi
 elif [ "$TARGET" == "l4t" ]; then
-    if [ "$DISTRO" != "bionic" ]; then
-        EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols"
-        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
-    else
-        EXTRA_DEPS=""
-    fi
+    EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols"
+    EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
 elif [ "$TARGET" == "desktop" ]; then
     EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols, libva-dev, libvdpau-dev"
     EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
@@ -50,15 +46,10 @@ else
 fi
 
 # Determine extra distro-specific dependencies
-if [ "$DISTRO" != "buster" ] && [ "$DISTRO" != "bionic" ]; then
+if [ "$DISTRO" != "buster" ]; then
     EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype-dev"
 else
     EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype6-dev"
-fi
-if [ "$DISTRO" != "bionic" ]; then
-    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libgl-dev"
-else
-    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libgl1-mesa-dev"
 fi
 
 # Create a build directory
