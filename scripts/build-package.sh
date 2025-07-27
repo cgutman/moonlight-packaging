@@ -16,6 +16,7 @@ VERSION=`cat app/version.txt`
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
     EXTRA_CONFIG="CONFIG+=gpuslow CONFIG+=disable-mmal"
 elif [ "$TARGET" == "l4t" ]; then
+    :
 elif [ "$TARGET" == "desktop" ]; then
     EXTRA_BUILD_DEPS="libva-dev, libvdpau-dev"
 elif [ "$TARGET" == "embedded" ]; then
