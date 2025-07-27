@@ -15,7 +15,7 @@ VERSION=`cat app/version.txt`
 # Determine extra target-specific dependencies
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
     EXTRA_CONFIG="CONFIG+=gpuslow CONFIG+=disable-mmal"
-    EXTRA_BUILD_DEPS="libavcodec-dev libavformat-dev libswscale-dev"
+    EXTRA_BUILD_DEPS="libavcodec-dev, libavformat-dev, libswscale-dev"
 elif [ "$TARGET" == "l4t" ]; then
     :
 elif [ "$TARGET" == "desktop" ]; then
