@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 TARGET_NAME="$1-$2"
 DOCKERFILE="Dockerfile.$1.$2"
 
