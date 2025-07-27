@@ -5,11 +5,11 @@ clone_depth: 1
 environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-amd64-buster.sh
+      BUILD_SCRIPT: ./build-single.sh amd64 buster
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-rpi-buster.sh
+      BUILD_SCRIPT: ./build-single.sh rpi bookworm
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-rpi64-buster.sh
+      BUILD_SCRIPT: ./build-single.sh rpi64 bookworm
 
 install:
   - sh: 'sudo apt update || true'

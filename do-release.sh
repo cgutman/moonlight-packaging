@@ -12,23 +12,23 @@ set -e
 ./push-images.sh
 
 # Build the packages
-./build-l4t-noble.sh $1 &
-./build-rpi-buster.sh $1 &
-./build-rpi64-buster.sh $1 &
-./build-aarch64-jammy.sh $1 &
+./build-single.sh l4t noble $1 &
+./build-single.sh rpi buster $1 &
+./build-single.sh rpi64 buster $1 &
+./build-single.sh aarch64 jammy $1 &
 wait
-./build-armhf-jammy.sh $1 &
-./build-armhf-bullseye.sh $1 &
-./build-aarch64-bullseye.sh $1 &
-./build-armhf-noble.sh $1 &
-./build-aarch64-noble.sh $1 &
+./build-single.sh armhf jammy $1 &
+./build-single.sh armhf bullseye $1 &
+./build-single.sh aarch64 bullseye $1 &
+./build-single.sh armhf noble $1 &
+./build-single.sh aarch64 noble $1 &
 wait
-./build-rpi-bookworm.sh $1 &
-./build-rpi64-bookworm.sh $1 &
-./build-armhf-bookworm.sh $1 &
-./build-aarch64-bookworm.sh $1 &
-./build-riscv64-sid.sh $1 &
-./build-l4t-jammy.sh $1 &
+./build-single.sh rpi bookworm $1 &
+./build-single.sh rpi64 bookworm $1 &
+./build-single.sh armhf bookworm $1 &
+./build-single.sh aarch64 bookworm $1 &
+./build-single.sh riscv64 sid $1 &
+./build-single.sh l4t jammy $1 &
 wait
 
 # Push the moonlight-qt packages to Cloudsmith repos
