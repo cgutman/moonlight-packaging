@@ -3,10 +3,10 @@ Maintainer: Cameron Gutman <aicommander@gmail.com>
 Section: misc
 Priority: optional
 Standards-Version: 4.3.0
-Build-Depends: debhelper (>= 10), libssl-dev, qtbase5-dev, qtquickcontrols2-5-dev, qtdeclarative5-dev, libqt5svg5-dev, libxkbcommon-dev, libopus-dev, libgbm-dev, libdrm-dev, libasound2-dev, libdbus-1-dev, libegl1-mesa-dev, libgles2-mesa-dev, libglu1-mesa-dev, libibus-1.0-dev, libpulse-dev, libudev-dev, libx11-dev, libxcursor-dev, libxext-dev, libxi-dev, libxinerama-dev, libxrandr-dev, libxss-dev, libxt-dev, libxv-dev, libxxf86vm-dev, libgl-dev, libfreetype-dev, libwayland-dev, wayland-protocols, EXTRA_BUILD_DEPS
+Build-Depends: debhelper (>= 10), libssl-dev, qt6-base-dev, qt6-declarative-dev, libqt6svg6-dev, libxkbcommon-dev, libopus-dev, libgbm-dev, libdrm-dev, libasound2-dev, libdbus-1-dev, libegl1-mesa-dev, libgles2-mesa-dev, libglu1-mesa-dev, libibus-1.0-dev, libpulse-dev, libudev-dev, libx11-dev, libxcursor-dev, libxext-dev, libxi-dev, libxinerama-dev, libxrandr-dev, libxss-dev, libxt-dev, libxv-dev, libxxf86vm-dev, libgl-dev, libfreetype-dev, libwayland-dev, wayland-protocols, EXTRA_BUILD_DEPS
 
 Package: moonlight-qt
 Architecture: any
-Depends: qml-module-qtquick2, qml-module-qtquick-controls2, qml-module-qtquick-layouts, qml-module-qtquick-window2, libdecor-0-0, ${shlibs:Depends}, ${misc:Depends}, EXTRA_DEPS
+Depends: qml6-module-qtquick-controls, qml6-module-qtquick-templates, qml6-module-qtquick-layouts, qml6-module-qtqml-workerscript, qml6-module-qtquick-window, qml6-module-qtquick, libdecor-0-0, ${shlibs:Depends}, ${misc:Depends}, EXTRA_DEPS
 Recommends: libgl1-mesa-dri, libgles2
 Description: NVIDIA GameStream client

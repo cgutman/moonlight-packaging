@@ -1,10 +1,9 @@
 #!/usr/bin/make -f
-export QT_SELECT := qt5
 %:
 	dh $@
 
 override_dh_auto_configure:
-	qmake PREFIX=/usr EXTRA_CONFIG moonlight-qt.pro
+	qmake6 PREFIX=/usr EXTRA_CONFIG moonlight-qt.pro
 
 override_dh_shlibdeps:
 	# Override package dependency error for /usr/lib/aarch64-linux-gnu/tegra/libnvbuf_utils.so
