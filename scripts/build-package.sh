@@ -13,43 +13,16 @@ git -c submodule.libs.update=none submodule update --init --recursive
 VERSION=`cat app/version.txt`
 
 # Determine extra target-specific dependencies
-if [ "$TARGET" == "rpi" ]; then
-    EXTRA_CONFIG="CONFIG+=gpuslow"
-    if [ "$DISTRO" = "buster" ]; then
-        EXTRA_BUILD_DEPS="libraspberrypi-dev | rbp-userland-dev-osmc"
-        EXTRA_DEPS="libraspberrypi0 | rbp-userland-osmc"
-    else
-        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
-        EXTRA_CONFIG="$EXTRA_CONFIG CONFIG+=disable-mmal"
-    fi
-elif [ "$TARGET" == "rpi64" ]; then
-    EXTRA_CONFIG="CONFIG+=gpuslow"
-    if [ "$DISTRO" != "buster" ]; then
-        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
-        EXTRA_CONFIG="$EXTRA_CONFIG CONFIG+=disable-mmal"
-    fi
+if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
+    EXTRA_CONFIG="CONFIG+=gpuslow CONFIG+=disable-mmal"
 elif [ "$TARGET" == "l4t" ]; then
-    EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols"
-    EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
 elif [ "$TARGET" == "desktop" ]; then
-    EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols, libva-dev, libvdpau-dev"
-    EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
+    EXTRA_BUILD_DEPS="libva-dev, libvdpau-dev"
 elif [ "$TARGET" == "embedded" ]; then
     EXTRA_CONFIG="CONFIG+=gpuslow"
-    if [ "$DISTRO" != "bullseye" ]; then
-        EXTRA_BUILD_DEPS="libwayland-dev, wayland-protocols"
-        EXTRA_DEPS="$EXTRA_DEPS, libdecor-0-0"
-    fi
 else
     echo "Unrecognized target: $TARGET"
     exit 1
-fi
-
-# Determine extra distro-specific dependencies
-if [ "$DISTRO" != "buster" ]; then
-    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype-dev"
-else
-    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS, libfreetype6-dev"
 fi
 
 # Create a build directory

@@ -4,31 +4,8 @@ BASE_FFMPEG_ARGS="--fatal-warnings --enable-pic --enable-static --disable-shared
 
 echo "Building dependencies for $TARGET"
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
-    # We have to build MMAL libraries for aarch64 on Buster
-    if [ "$TARGET" == "rpi64" ] && [ "$DISTRO" == "buster" ]; then
-        cd /opt/rpi-userland
-        mkdir build
-        cd build
-        cmake -DARM64=ON -DLIBRARY_TYPE=STATIC -DVCOS_PTHREADS_BUILD_SHARED=OFF ..
-        make -j$(nproc)
-        make install
-
-        # We also have to patch the FFmpeg configure script since it doesn't use pkg-config
-        sed -i 's|add_ldflags -L/opt/vc/lib/|add_ldflags -L/opt/vc/lib/ -pthread|g' /opt/FFmpeg/configure
-        sed -i 's|-lmmal_vc_client|-lmmal_vc_client -lbcm_host -lvcos -lvcsm -lvchostif -lvchiq_arm|g' /opt/FFmpeg/configure
-    fi
-
     # Enable HEVC VL42 stateless decoder (H.264 is stateful on Pi 4 and absent on Pi 5)
     EXTRA_FFMPEG_ARGS="--enable-sand --enable-libudev --enable-v4l2-request --enable-hwaccel=hevc_v4l2request"
-
-    if [ "$DISTRO" == "buster" ]; then
-        # Copy libraspberrypi-dev pkgconfig files into the default location
-        mkdir -p /usr/local/lib/pkgconfig
-        cp /opt/vc/lib/pkgconfig/* /usr/local/lib/pkgconfig/
-
-        # Enable MMAL on Buster
-        EXTRA_FFMPEG_ARGS="$EXTRA_FFMPEG_ARGS --enable-mmal --enable-decoder=h264_mmal"
-    fi
 elif [ "$TARGET" == "l4t" ]; then
     # Enable NVV4L2 decoders (and VP9 decoder to work around compilation error in NVV4L2 fallback code)
     EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2 --enable-decoder=vp9"

@@ -1,7 +1,7 @@
-FROM arm32v7/debian:bullseye
+FROM arm32v7/debian:trixie
 
-ENV TARGET=embedded
-ENV DISTRO=bullseye
+ENV TARGET=rpi
+ENV DISTRO=trixie
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
@@ -9,7 +9,7 @@ RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     rm -rf /var/lib/apt/lists/*
 
 COPY dav1d /opt/dav1d
-COPY FFmpeg /opt/FFmpeg
+COPY FFmpeg-rpi /opt/FFmpeg
 COPY SDL2 /opt/SDL2
 COPY SDL_ttf /opt/SDL_ttf
 

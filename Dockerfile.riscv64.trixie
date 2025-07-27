@@ -1,12 +1,10 @@
-FROM riscv64/debian:sid-20240211
+FROM riscv64/debian:trixie
 
 ENV TARGET=embedded
-ENV DISTRO=sid
+ENV DISTRO=trixie
 
 COPY scripts/install-base-deps.sh /opt/scripts/
-RUN sed -i 's|http://deb.debian.org/debian|http://snapshot.debian.org/archive/debian/20240211T000000Z|g' /etc/apt/sources.list.d/debian.sources && \
-    echo "Acquire::Check-Valid-Until false;" > /etc/apt/apt.conf.d/10-nocheckvalid && \
-    /bin/bash -c /opt/scripts/install-base-deps.sh && \
+RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/*
 

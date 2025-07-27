@@ -1,7 +1,7 @@
-FROM amd64/debian:buster
+FROM amd64/debian:trixie
 
 ENV TARGET=desktop
-ENV DISTRO=buster
+ENV DISTRO=trixie
 
 COPY scripts/install-base-deps.sh /opt/scripts/
 RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \

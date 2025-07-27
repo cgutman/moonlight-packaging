@@ -5,7 +5,7 @@ clone_depth: 1
 environment:
   matrix:
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
-      BUILD_SCRIPT: ./build-single.sh amd64 buster
+      BUILD_SCRIPT: ./build-single.sh amd64 trixie
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
       BUILD_SCRIPT: ./build-single.sh rpi bookworm
     - APPVEYOR_BUILD_WORKER_IMAGE: Ubuntu2004
