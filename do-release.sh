@@ -16,6 +16,7 @@ set -e
 ./build-single.sh rpi trixie $1 &
 ./build-single.sh rpi64 trixie $1 &
 ./build-single.sh aarch64 jammy $1 &
+./build-single.sh riscv64 trixie $1 &
 wait
 ./build-single.sh armhf jammy $1 &
 ./build-single.sh armhf trixie $1 &
@@ -27,7 +28,6 @@ wait
 ./build-single.sh rpi64 bookworm $1 &
 ./build-single.sh armhf bookworm $1 &
 ./build-single.sh aarch64 bookworm $1 &
-./build-single.sh riscv64 trixie $1 &
 ./build-single.sh l4t jammy $1 &
 wait
 
