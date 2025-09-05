@@ -1,16 +1,6 @@
 #!/usr/bin/env bash
 
 TARGET_NAME="$1-$2"
-DOCKERFILE="Dockerfile.$1.$2"
-
-EXTRA_ARGS="--pull"
-if [ "$1" == "aarch64" ] || [ "$1" == "rpi64" ] || [ "$1" == "l4t" ]; then
-  EXTRA_ARGS="$EXTRA_ARGS --platform linux/arm64"
-elif [ "$1" == "armhf" ] || [ "$1" == "rpi" ]; then
-  EXTRA_ARGS="$EXTRA_ARGS --platform linux/arm/v7"
-elif [ "$1" == "riscv64" ]; then
-  EXTRA_ARGS="$EXTRA_ARGS --platform linux/riscv64"
-fi
 
 TAG_UNIQUE_ID=`(git ls-tree HEAD; git diff-index HEAD) | sha256sum | cut -c-16`
 TAG_NAME="${TARGET_NAME}_${TAG_UNIQUE_ID}"
@@ -28,7 +18,7 @@ if [ $PULL_EXIT_CODE -eq 0 ]; then
   echo Using pre-built Docker image - cgutman/moonlight-packaging:$TAG_NAME
 else
   echo Pre-built image not available - building cgutman/moonlight-packaging:$TAG_NAME
-  docker buildx build $EXTRA_ARGS -f $DOCKERFILE -t cgutman/moonlight-packaging:$TAG_NAME .
+  ./build-image.sh $1 $2 $TAG_UNIQUE_ID
   echo Built Docker image - cgutman/moonlight-packaging:$TAG_NAME
 fi
 
