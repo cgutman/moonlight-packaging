@@ -27,6 +27,11 @@ else
     exit 1
 fi
 
+# Jammy requires libqt6opengl6-dev to use Qt Quick Controls
+if [ "$DISTRO" == "jammy" ]; then
+    EXTRA_BUILD_DEPS="$EXTRA_BUILD_DEPS libqt6opengl6-dev,"
+fi
+
 # Trixie and later require qt6-svg-plugins to render SVGs in QML
 if [ "$DISTRO" != "bookworm" ] && [ "$DISTRO" != "jammy" ] && [ "$DISTRO" != "noble" ]; then
     EXTRA_DEPS="$EXTRA_DEPS qt6-svg-plugins,"

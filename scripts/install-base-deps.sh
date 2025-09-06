@@ -11,6 +11,11 @@ if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
    apt-get install -y libavcodec-dev libavformat-dev libswscale-dev
 fi
 
+# This is no longer a separate package on modern distros
+if [ "$DISTRO" == "jammy" ]; then
+   apt-get install -y libqt6opengl6-dev
+fi
+
 if [ "$TARGET" == "embedded" ] && [ "$DISTRO" != "sid" ] && [ "$DISTRO" != "trixie" ]; then
    # Grab latest kernel headers from Bookworm to pick up the latest V4L2 defs
    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 6ED0E7B82643E131
