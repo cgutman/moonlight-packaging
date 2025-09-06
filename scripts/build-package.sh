@@ -15,16 +15,21 @@ VERSION=`cat app/version.txt`
 # Determine extra target-specific dependencies
 if [ "$TARGET" == "rpi" ] || [ "$TARGET" == "rpi64" ]; then
     EXTRA_CONFIG="CONFIG+=gpuslow CONFIG+=disable-mmal"
-    EXTRA_BUILD_DEPS="libavcodec-dev, libavformat-dev, libswscale-dev"
+    EXTRA_BUILD_DEPS="libavcodec-dev, libavformat-dev, libswscale-dev,"
 elif [ "$TARGET" == "l4t" ]; then
     :
 elif [ "$TARGET" == "desktop" ]; then
-    EXTRA_BUILD_DEPS="libva-dev, libvdpau-dev"
+    EXTRA_BUILD_DEPS="libva-dev, libvdpau-dev,"
 elif [ "$TARGET" == "embedded" ]; then
     EXTRA_CONFIG="CONFIG+=gpuslow"
 else
     echo "Unrecognized target: $TARGET"
     exit 1
+fi
+
+# Trixie and later require qt6-svg-plugins to render SVGs in QML
+if [ "$DISTRO" != "bookworm" ] && [ "$DISTRO" != "jammy" ] && [ "$DISTRO" != "noble" ]; then
+    EXTRA_DEPS="$EXTRA_DEPS qt6-svg-plugins,"
 fi
 
 # Create a build directory
