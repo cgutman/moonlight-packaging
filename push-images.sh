@@ -13,17 +13,19 @@ TAG_UNIQUE_ID=`git ls-tree HEAD | sha256sum | cut -c-16`
 ./build-image.sh l4t noble $TAG_UNIQUE_ID &
 ./build-image.sh rpi trixie $TAG_UNIQUE_ID &
 ./build-image.sh rpi64 trixie $TAG_UNIQUE_ID &
+wait
 ./build-image.sh aarch64 jammy $TAG_UNIQUE_ID &
 ./build-image.sh riscv64 trixie $TAG_UNIQUE_ID &
-wait
 ./build-image.sh armhf jammy $TAG_UNIQUE_ID &
+wait
 ./build-image.sh armhf trixie $TAG_UNIQUE_ID &
 ./build-image.sh aarch64 trixie $TAG_UNIQUE_ID &
 ./build-image.sh armhf noble $TAG_UNIQUE_ID &
-./build-image.sh aarch64 noble $TAG_UNIQUE_ID &
 wait
+./build-image.sh aarch64 noble $TAG_UNIQUE_ID &
 ./build-image.sh rpi bookworm $TAG_UNIQUE_ID &
 ./build-image.sh rpi64 bookworm $TAG_UNIQUE_ID &
+wait
 ./build-image.sh armhf bookworm $TAG_UNIQUE_ID &
 ./build-image.sh aarch64 bookworm $TAG_UNIQUE_ID &
 ./build-image.sh l4t jammy $TAG_UNIQUE_ID &

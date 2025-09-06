@@ -15,17 +15,19 @@ set -e
 ./build-single.sh l4t noble $1 &
 ./build-single.sh rpi trixie $1 &
 ./build-single.sh rpi64 trixie $1 &
+wait
 ./build-single.sh aarch64 jammy $1 &
 ./build-single.sh riscv64 trixie $1 &
-wait
 ./build-single.sh armhf jammy $1 &
+wait
 ./build-single.sh armhf trixie $1 &
 ./build-single.sh aarch64 trixie $1 &
 ./build-single.sh armhf noble $1 &
-./build-single.sh aarch64 noble $1 &
 wait
+./build-single.sh aarch64 noble $1 &
 ./build-single.sh rpi bookworm $1 &
 ./build-single.sh rpi64 bookworm $1 &
+wait
 ./build-single.sh armhf bookworm $1 &
 ./build-single.sh aarch64 bookworm $1 &
 ./build-single.sh l4t jammy $1 &
