@@ -1,3 +1,17 @@
+moonlight-qt (6.1.0-4) UNRELEASED; urgency=low
+
+  * Update to Qt 6
+
+  * Remove packages for Bionic, Buster, and Bullseye
+
+  * Add packages for Trixie
+
+  * Use system FFmpeg in Raspberry Pi OS packages
+
+  * Update SDL2
+
+ -- Cameron Gutman <aicommander@gmail.com>  Sat, 06 Sep 2025 04:00:00 +0000
+
 moonlight-qt (6.1.0-3) UNRELEASED; urgency=low
 
   * Update FFmpeg to 7.1 for generic embedded packages
