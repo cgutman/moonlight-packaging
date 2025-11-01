@@ -48,9 +48,18 @@ if [ "$USE_PLATFORM_FFMPEG" == "0" ]; then
     ninja -C build
     ninja install -C build
 
+    # FFmpeg's architecture detection uses 'uname -m' which will be incorrect when
+    # natively executing a different hardware-compatible ABI (like armhf on aarch64
+    # or i686 on x86_64). We have to override that detection ourselves here.
+    FFMPEG_ARCH=$(dpkg --print-architecture)
+    if [ "$FFMPEG_ARCH" == "armhf" ]; then
+        # Most dpkg architectures are handled by FFmpeg, but armhf is a special case
+        FFMPEG_ARCH=arm
+    fi
+
     # Build and install FFmpeg
     cd /opt/FFmpeg
-    ./configure $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS $DAV1D_FFMPEG_ARGS
+    ./configure --arch=$FFMPEG_ARCH $BASE_FFMPEG_ARGS $EXTRA_FFMPEG_ARGS $DAV1D_FFMPEG_ARGS
     make -j$(nproc)
     make install
 fi
