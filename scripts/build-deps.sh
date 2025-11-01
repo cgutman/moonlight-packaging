@@ -11,12 +11,8 @@ elif [ "$TARGET" == "l4t" ]; then
     # Enable NVV4L2 decoders (and VP9 decoder to work around compilation error in NVV4L2 fallback code)
     EXTRA_FFMPEG_ARGS="--enable-nvv4l2 --enable-decoder=h264_nvv4l2 --enable-decoder=hevc_nvv4l2 --enable-decoder=vp9"
 elif [ "$TARGET" == "desktop" ]; then
-    # We need to install the NVDEC headers
-    cd /opt/nv-codec-headers
-    make install
-
-    # Enable VAAPI, VDPAU, and NVDEC decoders
-    EXTRA_FFMPEG_ARGS="--enable-nvdec --enable-hwaccel=h264_nvdec --enable-hwaccel=hevc_nvdec --enable-hwaccel=av1_nvdec --enable-hwaccel=h264_vaapi --enable-hwaccel=hevc_vaapi --enable-hwaccel=av1_vaapi --enable-hwaccel=h264_vdpau --enable-hwaccel=hevc_vdpau --enable-hwaccel=av1_vdpau"
+    # Enable VAAPI and VDPAU decoders (TODO: Add Vulkan Video if we ever actually ship this for desktop platforms)
+    EXTRA_FFMPEG_ARGS="--enable-hwaccel=h264_vaapi --enable-hwaccel=hevc_vaapi --enable-hwaccel=av1_vaapi --enable-hwaccel=h264_vdpau --enable-hwaccel=hevc_vdpau --enable-hwaccel=av1_vdpau"
 elif [ "$TARGET" == "embedded" ]; then
     # Enable stateless V4L2 support
     EXTRA_FFMPEG_ARGS="--enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
