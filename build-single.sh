@@ -23,3 +23,8 @@ else
 fi
 
 docker run --rm --mount type=bind,source="$(pwd)"/$OUT_DIR,target=/out --mount type=bind,source="$(pwd)"/debian,target=/opt/debian -e COMMIT="$3" cgutman/moonlight-packaging:$TAG_NAME
+
+# Push the image now if we're building master in GitHub Actions
+if [ $PULL_EXIT_CODE -ne 0 ] && [ "$GITHUB_REF" == "refs/heads/master" ]; then
+  docker push cgutman/moonlight-packaging:$TAG_NAME
+fi
