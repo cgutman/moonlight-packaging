@@ -1,0 +1,101 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            distro: trixie
+            target: amd64
+
+          - os: ubuntu-24.04
+            distro: trixie
+            target: riscv64
+
+          - os: ubuntu-24.04-arm
+            distro: bookworm
+            target: aarch64
+
+          - os: ubuntu-24.04-arm
+            distro: jammy
+            target: aarch64
+
+          - os: ubuntu-24.04-arm
+            distro: noble
+            target: aarch64
+
+          - os: ubuntu-24.04-arm
+            distro: trixie
+            target: aarch64
+
+          - os: ubuntu-24.04-arm
+            distro: bookworm
+            target: armhf
+
+          - os: ubuntu-24.04-arm
+            distro: jammy
+            target: armhf
+
+          - os: ubuntu-24.04-arm
+            distro: noble
+            target: armhf
+
+          - os: ubuntu-24.04-arm
+            distro: trixie
+            target: armhf
+
+          - os: ubuntu-24.04-arm
+            distro: jammy
+            target: l4t
+
+          - os: ubuntu-24.04-arm
+            distro: noble
+            target: l4t
+
+          - os: ubuntu-24.04-arm
+            distro: bookworm
+            target: rpi
+
+          - os: ubuntu-24.04-arm
+            distro: trixie
+            target: rpi
+
+          - os: ubuntu-24.04-arm
+            distro: bookworm
+            target: rpi64
+
+          - os: ubuntu-24.04-arm
+            distro: trixie
+            target: rpi64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          submodules: 'recursive'
+          fetch-depth: 1
+
+      - name: Setup Emulation
+        if: matrix.os == 'ubuntu-24.04'
+        run: docker run --privileged --rm tonistiigi/binfmt --install all
+
+      - name: Build Package
+        run: ./build-single.sh ${{ matrix.target }} ${{ matrix.distro }}
+
+      - name: Upload Package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Moonlight-${{ matrix.distro }}-${{ matrix.target }}
+          path: |
+            out_${{ matrix.target }}-${{ matrix.distro }}/*.deb
+            out_${{ matrix.target }}-${{ matrix.distro }}/*.ddeb
+          if-no-files-found: error
