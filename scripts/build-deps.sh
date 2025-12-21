@@ -15,7 +15,7 @@ elif [ "$TARGET" == "desktop" ]; then
     EXTRA_FFMPEG_ARGS="--enable-hwaccel=h264_vaapi --enable-hwaccel=hevc_vaapi --enable-hwaccel=av1_vaapi --enable-hwaccel=h264_vdpau --enable-hwaccel=hevc_vdpau --enable-hwaccel=av1_vdpau"
 elif [ "$TARGET" == "embedded" ]; then
     # Enable stateless V4L2 support
-    EXTRA_FFMPEG_ARGS="--enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request"
+    EXTRA_FFMPEG_ARGS="--enable-v4l2-request --enable-hwaccel=h264_v4l2request --enable-hwaccel=hevc_v4l2request --enable-hwaccel=av1_v4l2request"
 else
     echo "Unrecognized target: $TARGET"
     exit 1
