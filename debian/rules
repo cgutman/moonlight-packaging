@@ -1,4 +1,12 @@
 #!/usr/bin/make -f
+
+# Enable NEON for armhf builds
+include /usr/share/dpkg/architecture.mk
+ifeq ($(DEB_HOST_ARCH), armhf)
+	export DEB_CFLAGS_MAINT_APPEND = -mfpu=neon
+	export DEB_CXXFLAGS_MAINT_APPEND = -mfpu=neon
+endif
+
 %:
 	dh $@
 
