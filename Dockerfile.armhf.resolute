@@ -1,0 +1,22 @@
+FROM arm32v7/ubuntu:resolute
+
+ENV TARGET=embedded
+ENV DISTRO=resolute
+
+COPY scripts/install-base-deps.sh /opt/scripts/
+RUN /bin/bash -c /opt/scripts/install-base-deps.sh && \
+    apt-get clean -y && \
+    rm -rf /var/lib/apt/lists/*
+
+COPY dav1d /opt/dav1d
+COPY FFmpeg /opt/FFmpeg
+COPY SDL2 /opt/SDL2
+COPY SDL_ttf /opt/SDL_ttf
+
+COPY scripts/build-deps.sh /opt/scripts/
+RUN /bin/bash -c /opt/scripts/build-deps.sh
+
+COPY scripts/build-package.sh /opt/scripts/
+
+VOLUME "/out"
+ENTRYPOINT [ "/bin/bash", "-c", "/opt/scripts/build-package.sh" ]

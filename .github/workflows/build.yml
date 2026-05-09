@@ -20,6 +20,10 @@ jobs:
             distro: trixie
             target: riscv64
 
+          - os: ubuntu-24.04
+            distro: resolute
+            target: riscv64
+
           - os: ubuntu-24.04-arm
             distro: bookworm
             target: aarch64
@@ -30,6 +34,10 @@ jobs:
 
           - os: ubuntu-24.04-arm
             distro: noble
+            target: aarch64
+
+          - os: ubuntu-24.04-arm
+            distro: resolute
             target: aarch64
 
           - os: ubuntu-24.04-arm
@@ -46,6 +54,10 @@ jobs:
 
           - os: ubuntu-24.04-arm
             distro: noble
+            target: armhf
+
+          - os: ubuntu-24.04-arm
+            distro: resolute
             target: armhf
 
           - os: ubuntu-24.04-arm

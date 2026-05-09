@@ -16,7 +16,7 @@ if [ "$DISTRO" == "jammy" ]; then
    apt-get install -y libqt6opengl6-dev
 fi
 
-if [ "$TARGET" == "embedded" ] && [ "$DISTRO" != "sid" ] && [ "$DISTRO" != "trixie" ]; then
+if [ "$TARGET" == "embedded" ] && [ "$DISTRO" != "trixie" ] && [ "$DISTRO" != "resolute" ]; then
    # Grab latest kernel headers from Bookworm to pick up the latest V4L2 defs
    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 6ED0E7B82643E131
    echo "deb http://deb.debian.org/debian bookworm-backports main" >> /etc/apt/sources.list
