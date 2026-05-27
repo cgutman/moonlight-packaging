@@ -1,5 +1,8 @@
 #!/usr/bin/make -f
 
+# Enable Link-Time Optimization for all builds
+export DEB_BUILD_MAINT_OPTIONS = optimize=+lto
+
 # Enable NEON for armhf builds
 include /usr/share/dpkg/architecture.mk
 ifeq ($(DEB_HOST_ARCH), armhf)
