@@ -1,6 +1,6 @@
 set -e
 
-BASE_FFMPEG_ARGS="--fatal-warnings --enable-pic --enable-static --disable-shared --disable-all --disable-vulkan --enable-avcodec --enable-swscale --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 --enable-libdav1d --enable-decoder=libdav1d --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
+BASE_FFMPEG_ARGS="--fatal-warnings --enable-pic --enable-lto --enable-static --disable-shared --disable-all --disable-vulkan --enable-avcodec --enable-swscale --enable-decoder=h264 --enable-decoder=hevc --enable-decoder=av1 --enable-libdav1d --enable-decoder=libdav1d --enable-libdrm --enable-decoder=h264_v4l2m2m --enable-decoder=hevc_v4l2m2m --extra-cflags=-I/usr/include/libdrm"
 USE_PLATFORM_FFMPEG=0
 
 echo "Building dependencies for $TARGET"
