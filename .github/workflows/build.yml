@@ -16,11 +16,11 @@ jobs:
             distro: trixie
             target: amd64
 
-          - os: ubuntu-24.04
+          - os: ubuntu-24.04-riscv
             distro: trixie
             target: riscv64
 
-          - os: ubuntu-24.04
+          - os: ubuntu-26.04-riscv
             distro: resolute
             target: riscv64
 
