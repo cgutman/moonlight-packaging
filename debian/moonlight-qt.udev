@@ -13,9 +13,22 @@ KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="hid-steam", ENV{ID_GAME_CONTRO
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="shield", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="wiimote", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="nintendo", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", DRIVERS=="xpadneo", ENV{ID_GAME_CONTROLLER}="1"
 
 # We'll also match by VID/PID for some of the common gamepads. Most of the items come from
 # https://github.com/ValveSoftware/steam-devices/blob/master/60-steam-input.rules
+
+# Valve USB devices
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="28de", ENV{ID_GAME_CONTROLLER}="1"
+
+# Valve HID devices over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="28de", ENV{ID_GAME_CONTROLLER}="1"
+
+# Valve HID devices hidraw
+SUBSYSTEM=="hidraw", KERNELS=="000[356]:28DE:*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Valve HID devices over bluetooth evdev
+SUBSYSTEM=="input", ATTRS{id/vendor}=="28de", ENV{ID_GAME_CONTROLLER}="1"
 
 # DualShock 3 over USB hidraw
 KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0268", ENV{ID_GAME_CONTROLLER}="1"
@@ -44,17 +57,103 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6", ENV{ID_GAM
 # PS5 DualSense controller over bluetooth hidraw
 KERNEL=="hidraw*", KERNELS=="*054C:0CE6*", ENV{ID_GAME_CONTROLLER}="1"
 
-# PS5 DualSense Edge controller over USB hidraw
+# Sony DualSense Edge Wireless-Controller over USB hidraw
 KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0df2", ENV{ID_GAME_CONTROLLER}="1"
 
-# PS5 DualSense Edge controller over bluetooth hidraw
+# Sony DualSense Edge Wireless-Controller over bluetooth hidraw
 KERNEL=="hidraw*", KERNELS=="*054C:0DF2*", ENV{ID_GAME_CONTROLLER}="1"
+
+# STRIKEPAD PS4 Grip Add-on
+KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="05c5", ENV{ID_GAME_CONTROLLER}="1"
 
 # Nintendo Switch Pro Controller over USB hidraw
 KERNEL=="hidraw*", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2009", ENV{ID_GAME_CONTROLLER}="1"
 
 # Nintendo Switch Pro Controller over bluetooth hidraw
 KERNEL=="hidraw*", KERNELS=="*057E:2009*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Switch Joy-Con (L/R)
+KERNEL=="hidraw*", KERNELS=="*057E:200[67]*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Wii U/Switch Wired GameCube Controller Adapter
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="0337", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Switch 2 Joy-Con (R) over USB
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2066", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Switch 2 Joy-Con (L) over USB
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2067", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Switch 2 Pro Controller over USB
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2069", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nintendo Switch 2 GameCube Controller over USB
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTRS{idVendor}=="057e", ATTRS{idProduct}=="2073", ENV{ID_GAME_CONTROLLER}="1"
+
+# PDP Faceoff Wired Pro Controller for Nintendo Switch
+KERNEL=="hidraw*", ATTRS{idVendor}=="0e6f", ATTRS{idProduct}=="0180", ENV{ID_GAME_CONTROLLER}="1"
+
+# PDP Faceoff Deluxe+ Audio Wired Pro Controller for Nintendo Switch
+KERNEL=="hidraw*", ATTRS{idVendor}=="0e6f", ATTRS{idProduct}=="0184", ENV{ID_GAME_CONTROLLER}="1"
+
+# Logic3 Rock Candy Wired Controller for Nintendo Switch
+KERNEL=="hidraw*", ATTRS{idVendor}=="0e6f", ATTRS{idProduct}=="0187", ENV{ID_GAME_CONTROLLER}="1"
+
+# Afterglow Deluxe+ Wired Controller for Nintendo Switch
+KERNEL=="hidraw*", ATTRS{idVendor}=="0e6f", ATTRS{idProduct}=="0188", ENV{ID_GAME_CONTROLLER}="1"
+
+# PowerA Wired Controller for Nintendo Switch
+KERNEL=="hidraw*", ATTRS{idVendor}=="20d6", ATTRS{idProduct}=="a711", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", ATTRS{idVendor}=="20d6", ATTRS{idProduct}=="a712", ENV{ID_GAME_CONTROLLER}="1"
+KERNEL=="hidraw*", ATTRS{idVendor}=="20d6", ATTRS{idProduct}=="a713", ENV{ID_GAME_CONTROLLER}="1"
+
+# Nacon PS4 Revolution Pro Controller
+KERNEL=="hidraw*", ATTRS{idVendor}=="146b", ATTRS{idProduct}=="0d01", ENV{ID_GAME_CONTROLLER}="1"
+
+# Razer Raiju PS4 Controller
+KERNEL=="hidraw*", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="1000", ENV{ID_GAME_CONTROLLER}="1"
+
+# Razer Raiju 2 Tournament Edition
+KERNEL=="hidraw*", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="1007", ENV{ID_GAME_CONTROLLER}="1"
+
+# Razer Raiju PS4 Controller Tournament Edition over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*1532:100A*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Razer Raiju Ultimate over USB
+KERNEL=="hidraw*", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="1004", ENV{ID_GAME_CONTROLLER}="1"
+
+# Razer Raiju Ultimate over PC Bluetooth
+KERNEL=="hidraw*", KERNELS=="*1532:1009*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Razer Wolverine V2 Pro in wired PS5 mode
+KERNEL=="hidraw*", ATTRS{idVendor}=="1532", ATTRS{idProduct}=="100b", ENV{ID_GAME_CONTROLLER}="1"
+
+# EMiO Elite Controller for PS4
+KERNEL=="hidraw*", ATTRS{idVendor}=="0c12", ATTRS{idProduct}=="1cf6", ENV{ID_GAME_CONTROLLER}="1"
+
+# Armor Armor 3 Pad PS4
+KERNEL=="hidraw*", ATTRS{idVendor}=="0c12", ATTRS{idProduct}=="0e10", ENV{ID_GAME_CONTROLLER}="1"
+
+# HORIPAD 4 FPS
+KERNEL=="hidraw*", ATTRS{idVendor}=="0f0d", ATTRS{idProduct}=="0055", ENV{ID_GAME_CONTROLLER}="1"
+
+# HORIPAD 4 FPS Plus
+KERNEL=="hidraw*", ATTRS{idVendor}=="0f0d", ATTRS{idProduct}=="0066", ENV{ID_GAME_CONTROLLER}="1"
+
+# HORIPAD for Nintendo Switch
+KERNEL=="hidraw*", ATTRS{idVendor}=="0f0d", ATTRS{idProduct}=="00c1", ENV{ID_GAME_CONTROLLER}="1"
+
+# HORIPAD mini 4
+KERNEL=="hidraw*", ATTRS{idVendor}=="0f0d", ATTRS{idProduct}=="00ee", ENV{ID_GAME_CONTROLLER}="1"
+
+# HORIPAD STEAM
+KERNEL=="hidraw*", ATTRS{idVendor}=="0f0d", ATTRS{idProduct}=="01ab", ENV{ID_GAME_CONTROLLER}="1"
+
+# Hori Co., Ltd HORI Wireless Pad ONYX PLUS Wired
+KERNEL=="hidraw*", ATTRS{idVendor}=="0f0d", ATTRS{idProduct}=="012d", ENV{ID_GAME_CONTROLLER}="1"
+
+# Hori Co., Ltd HORI Wireless Pad ONYX PLUS Wireless
+KERNEL=="hidraw*", ATTRS{idVendor}=="0f0d", ATTRS{idProduct}=="012b", ENV{ID_GAME_CONTROLLER}="1"
 
 # Stadia controller
 KERNEL=="hidraw*", KERNELS=="*18D1:9400*", ENV{ID_GAME_CONTROLLER}="1"
@@ -70,6 +169,12 @@ KERNEL=="hidraw*", ATTRS{idVendor}=="0955", ATTRS{idProduct}=="7214", ENV{ID_GAM
 KERNEL=="hidraw*", KERNELS=="*0171:0419*", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", ATTRS{idVendor}=="1949", ATTRS{idProduct}=="0419", ENV{ID_GAME_CONTROLLER}="1"
 
+# Astro C40
+KERNEL=="hidraw*", ATTRS{idVendor}=="9886", ATTRS{idProduct}=="0025", ENV{ID_GAME_CONTROLLER}="1"
+
+# Thrustmaster eSwap Pro
+KERNEL=="hidraw*", ATTRS{idVendor}=="044f", ATTRS{idProduct}=="d00e", ENV{ID_GAME_CONTROLLER}="1"
+
 # Xbox One/Series controllers (Bluetooth)
 KERNEL=="hidraw*", KERNELS=="*045E:0B0C*", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", KERNELS=="*045E:0B21*", ENV{ID_GAME_CONTROLLER}="1"
@@ -80,7 +185,42 @@ KERNEL=="hidraw*", KERNELS=="*045E:02FD*", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", KERNELS=="*045E:0B20*", ENV{ID_GAME_CONTROLLER}="1"
 KERNEL=="hidraw*", KERNELS=="*045E:0B13*", ENV{ID_GAME_CONTROLLER}="1"
 
+# Generic SInput Device over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="10c6", ENV{ID_GAME_CONTROLLER}="1"
+
+# Generic SInput Device over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*2E8A:10C6*", ENV{ID_GAME_CONTROLLER}="1"
+
+# ProGCC in SInput Mode over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="10df", ENV{ID_GAME_CONTROLLER}="1"
+
+# ProGCC in SInput Mode over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*2E8A:10DF*", ENV{ID_GAME_CONTROLLER}="1"
+
+# GC Ultimate in SInput Mode over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="10dd", ENV{ID_GAME_CONTROLLER}="1"
+
+# GC Ultimate in SInput Mode over bluetooth hidraw
+KERNEL=="hidraw*", KERNELS=="*2E8A:10DD*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Firebird in SInput Mode over USB hidraw
+KERNEL=="hidraw*", ATTRS{idVendor}=="2e8a", ATTRS{idProduct}=="10e0", ENV{ID_GAME_CONTROLLER}="1"
+
+# 8bitdo 2.4 GHz / Wired
+KERNEL=="hidraw*", ATTRS{idVendor}=="2dc8", ENV{ID_GAME_CONTROLLER}="1"
+
+# 8bitdo Bluetooth
+KERNEL=="hidraw*", KERNELS=="*2DC8:*", ENV{ID_GAME_CONTROLLER}="1"
+
+# Flydigi 2.4 GHz / Wired
+KERNEL=="hidraw*", ATTRS{idVendor}=="04b4", ENV{ID_GAME_CONTROLLER}="1"
+
+# Flydigi HIDAPI Enhanced Mode
+KERNEL=="hidraw*", ATTRS{idVendor}=="37d7", ENV{ID_GAME_CONTROLLER}="1"
+
 # If #22860 is adopted in systemd, this will magically start working and obviate the need
 # for the rest of the hardcoded rules in this file. Otherwise, this applies the permission
 # adjustments for all the devices listed above.
 KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ENV{ID_GAME_CONTROLLER}=="?*", GROUP="input", TAG+="uaccess"
+SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ENV{ID_GAME_CONTROLLER}=="?*", GROUP="input", TAG+="uaccess"
+SUBSYSTEM=="input", ENV{ID_GAME_CONTROLLER}=="?*", GROUP="input", TAG+="uaccess"
